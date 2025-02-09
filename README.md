@@ -106,21 +106,3 @@ When you tap **Stop Test**, the app sends stop commands to the server and closes
 
 ---
 
-## Troubleshooting
-
-- **Cannot connect**:  
-  Ensure the phone and server can reach each other (same LAN or valid routing), and that the ports aren’t blocked by firewall.
-- **Slow or bursty throughput**:  
-  Very high UDP rates can overload the phone or network. Try smaller rates first (e.g. `50Mbps`).
-- **Truncated logs**:  
-  If you see partial lines, it might be a concurrency issue or normal logcat truncation for large lines. The local CSV file usually remains correct.
-- **Aggregator delays**:  
-  If the phone is very busy receiving data, the aggregator thread might not run exactly every 1 second. This can cause 2–3 second delays in logs.
-
----
-
-## License
-
-This sample code is for demonstration and testing. You can use, modify, or distribute it as needed for educational or internal use.
-No guarantees are provided—use at your own risk!
-
