@@ -289,93 +289,121 @@ def handle_control_connection(conn, addr):
       START_UDP <rate>
       STOP_UDP
       CSV_LOGS ...
+    Now sends "OK" acknowledgment for START/STOP commands.
     """
     global current_send_rate_tcp
     global current_send_rate_udp
     global current_log_filename, current_protocol
     global phone_addr, current_tcp_conn
 
-    # Read all data until client closes
-    chunks = []
-    while True:
-        block = conn.recv(4096)
-        if not block:
-            break
-        chunks.append(block)
-    data = b''.join(chunks).decode(errors='replace')
-    if not data:
-        conn.close()
-        return
+    def send_ack(success=True):
+        try:
+            conn.sendall(b"OK\n" if success else b"ERROR\n")
+        except:
+            pass
 
-    print("Control from", addr, "->", data)
+    try:
+        # Use buffered reader for line-by-line reading
+        reader = conn.makefile('r')
+        data = reader.readline().strip()
+        
+        if not data:
+            conn.close()
+            return
 
-    if data.startswith("CSV_LOGS"):
-        # lines[0] = "CSV_LOGS", lines[1..] = the CSV lines
-        lines = data.splitlines()
-        if len(lines) > 1:
-            csv_data = "\n".join(lines[1:])
-            append_csv_logs(csv_data)
+        print("Control from", addr, "->", data)
 
-    elif data.startswith("START_TCP"):
-        # Example: "START_TCP 500Mbps"
-        parts = data.split()
-        if len(parts) >= 2:
-            rate_str = parts[1]
-            try:
-                rate_value = float(''.join(c for c in rate_str if c.isdigit() or c == '.'))
-                current_send_rate_tcp = rate_value
-                print(f"[CONTROL] START_TCP with rate {rate_value} Mbps")
-            except ValueError:
-                print("[CONTROL] Could not parse TCP rate; ignoring")
+        if data.startswith("CSV_LOGS"):
+            # For CSV_LOGS, continue reading all lines
+            csv_lines = []
+            while True:
+                line = reader.readline()
+                if not line:
+                    break
+                csv_lines.append(line.strip())
+            
+            if csv_lines:
+                csv_data = "\n".join(csv_lines)
+                append_csv_logs(csv_data)
 
-        can_send_tcp_event.set()
+        elif data.startswith("START_TCP"):
+            # Example: "START_TCP 500Mbps"
+            parts = data.split()
+            success = False
+            if len(parts) >= 2:
+                rate_str = parts[1]
+                try:
+                    rate_value = float(''.join(c for c in rate_str if c.isdigit() or c == '.'))
+                    current_send_rate_tcp = rate_value
+                    print(f"[CONTROL] START_TCP with rate {rate_value} Mbps")
+                    success = True
+                except ValueError:
+                    print("[CONTROL] Could not parse TCP rate; ignoring")
 
-        # >>> CHANGED: start new log file with header
-        start_new_log_file("tcp")
+            if success:
+                can_send_tcp_event.set()
+                start_new_log_file("tcp")
+                send_ack(True)
+            else:
+                send_ack(False)
 
-    elif data.startswith("STOP_TCP"):
-        print("[CONTROL] STOP_TCP => can_send_tcp_event.clear()")
-        can_send_tcp_event.clear()
-        current_send_rate_tcp = None
+        elif data.startswith("STOP_TCP"):
+            print("[CONTROL] STOP_TCP => can_send_tcp_event.clear()")
+            can_send_tcp_event.clear()
+            current_send_rate_tcp = None
 
-        # >>> CHANGED: optionally force close the active connection
-        if current_tcp_conn:
-            try:
-                current_tcp_conn.close()
-            except:
-                pass
-            current_tcp_conn = None
+            if current_tcp_conn:
+                try:
+                    current_tcp_conn.close()
+                except:
+                    pass
+                current_tcp_conn = None
+            
+            send_ack(True)
 
-    elif data.startswith("START_UDP"):
-        # Example: "START_UDP 200Mbps"
-        parts = data.split()
-        if len(parts) >= 2:
-            rate_str = parts[1]
-            try:
-                rate_value = float(''.join(c for c in rate_str if c.isdigit() or c == '.'))
-                current_send_rate_udp = rate_value
-                print(f"[CONTROL] START_UDP with rate {rate_value} Mbps")
-            except ValueError:
-                print("[CONTROL] Could not parse UDP rate; ignoring")
+        elif data.startswith("START_UDP"):
+            # Example: "START_UDP 200Mbps"
+            parts = data.split()
+            success = False
+            if len(parts) >= 2:
+                rate_str = parts[1]
+                try:
+                    rate_value = float(''.join(c for c in rate_str if c.isdigit() or c == '.'))
+                    current_send_rate_udp = rate_value
+                    print(f"[CONTROL] START_UDP with rate {rate_value} Mbps")
+                    success = True
+                except ValueError:
+                    print("[CONTROL] Could not parse UDP rate; ignoring")
 
-        can_send_udp_event.set()
+            if success:
+                can_send_udp_event.set()
+                start_new_log_file("udp")
+                send_ack(True)
+            else:
+                send_ack(False)
 
-        # >>> CHANGED: start new log file with header
-        start_new_log_file("udp")
+        elif data.startswith("STOP_UDP"):
+            print("[CONTROL] STOP_UDP => can_send_udp_event.clear()")
+            can_send_udp_event.clear()
+            current_send_rate_udp = None
+            phone_addr = None
+            send_ack(True)
 
-    elif data.startswith("STOP_UDP"):
-        print("[CONTROL] STOP_UDP => can_send_udp_event.clear()")
-        can_send_udp_event.clear()
-        current_send_rate_udp = None
+        else:
+            print("[CONTROL] Unknown command:", data)
+            send_ack(False)
 
-        # >>> CHANGED: reset phone_addr so next START_UDP must wait for new hello
-        global phone_addr
-        phone_addr = None
-
-    else:
-        print("[CONTROL] Unknown command:", data)
-
-    conn.close()
+    except Exception as e:
+        print(f"[CONTROL] Error handling connection: {e}")
+        try:
+            send_ack(False)
+        except:
+            pass
+    finally:
+        try:
+            conn.close()
+        except:
+            pass
 
 
 def control_server():
