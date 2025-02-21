@@ -54,6 +54,8 @@ class MainActivity : ComponentActivity() {
         private const val TAG = "TCP_UDP_TEST"
     }
 
+    private var controlClient: PersistentControlClient? = null
+
     // We no longer have averagingJob: we’ll use a thread for averaging instead
     // private var averagingJob: Job? = null
 
@@ -194,71 +196,89 @@ class MainActivity : ComponentActivity() {
         dataPort: Int,
         desiredRate: String
     ) {
-        Log.d(TAG, "startTest: mode=$mode, server=$serverIp, ctrlPort=$controlPort, dataPort=$dataPort, rate=$desiredRate")
+        // Launch in an IO dispatcher so it doesn't block the UI
+        GlobalScope.launch(Dispatchers.IO) {
+            Log.d(
+                TAG,
+                "startTest: mode=$mode, server=$serverIp, ctrlPort=$controlPort, dataPort=$dataPort, rate=$desiredRate"
+            )
 
-        // Create local log folder
-        val timestamp = SimpleDateFormat("yy-MM-dd-HH-mm-ss", Locale.getDefault()).format(Date())
-        logFolderPath = File(getExternalFilesDir(null), "tcp_test/$timestamp").absolutePath
-        Log.d(TAG, "Log folder: $logFolderPath")
+            // Create local log folder
+            val timestamp =
+                SimpleDateFormat("yy-MM-dd-HH-mm-ss", Locale.getDefault()).format(Date())
+            logFolderPath = File(getExternalFilesDir(null), "tcp_test/$timestamp").absolutePath
+            Log.d(TAG, "Log folder: $logFolderPath")
 
-        val udpContext = newSingleThreadContext("UdpReceiver")
-        val collectorContext = newSingleThreadContext("CollectorThread")
+            val udpContext = newSingleThreadContext("UdpReceiver")
+            val collectorContext = newSingleThreadContext("CollectorThread")
 
-        if (mode == "TCP") {
-            // Tell server to start TCP
-            GlobalScope.launch(Dispatchers.IO) {
-                sendControlCommand("START_TCP $desiredRate", serverIp, controlPort)
-            }
-            // Start the TCP receiving job if not active
-            if (receivingJob?.isActive != true) {
-                receivingJob = GlobalScope.launch(Dispatchers.IO) {
-                    runTcpReceiver(serverIp, dataPort)
+            if (controlClient == null) {
+                controlClient = PersistentControlClient(serverIp, controlPort).apply {
+                    connect() // open the socket once
                 }
             }
-        } else {
-            // === UDP mode ===
-            GlobalScope.launch(udpContext) {
-                // Create/bind local socket if needed
-                if (udpSocket == null) {
-                    udpSocket = DatagramSocket(null).apply {
-                        reuseAddress = true
-                        try {
-                            receiveBufferSize = 2 * 1024 * 1024
-                        } catch (_: Exception) { /* ignore */ }
-                        bind(InetSocketAddress(0)) // ephemeral port
-                        Log.d(TAG, "UDP: Created socket on port $localPort")
-                    }
+
+            if (mode == "TCP") {
+                // Tell server to start TCP
+                GlobalScope.launch(Dispatchers.IO) {
+                    sendControlCommand("START_TCP $desiredRate", serverIp, controlPort)
                 }
-                // Start receiving job
+                // Start the TCP receiving job if not active
                 if (receivingJob?.isActive != true) {
-                    receivingJob = GlobalScope.launch(udpContext) {
-                        udpSocket?.let { runUdpReceiver(it) }
-                            ?: Log.e(TAG, "UDP: Socket not available")
+                    receivingJob = GlobalScope.launch(Dispatchers.IO) {
+                        runTcpReceiver(serverIp, dataPort)
                     }
                 }
-                // Wait a bit, then send a 'hello' packet for handshake (optional)
-                delay(100)
-                try {
-                    udpSocket?.let { sock ->
-                        val buf = "hello".toByteArray()
-                        val packet = DatagramPacket(buf, buf.size, InetSocketAddress(serverIp, dataPort))
-                        sock.send(packet)
-                        Log.d(TAG, "UDP: Sent initial handshake to $serverIp:$dataPort from port ${sock.localPort}")
+            } else {
+                // === UDP mode ===
+                GlobalScope.launch(udpContext) {
+                    // Create/bind local socket if needed
+                    if (udpSocket == null) {
+                        udpSocket = DatagramSocket(null).apply {
+                            reuseAddress = true
+                            try {
+                                receiveBufferSize = 2 * 1024 * 1024
+                            } catch (_: Exception) { /* ignore */
+                            }
+                            bind(InetSocketAddress(0)) // ephemeral port
+                            Log.d(TAG, "UDP: Created socket on port $localPort")
+                        }
                     }
-                } catch (e: Exception) {
-                    Log.e(TAG, "Error sending initial UDP handshake", e)
+                    // Start receiving job
+                    if (receivingJob?.isActive != true) {
+                        receivingJob = GlobalScope.launch(udpContext) {
+                            udpSocket?.let { runUdpReceiver(it) }
+                                ?: Log.e(TAG, "UDP: Socket not available")
+                        }
+                    }
+                    // Wait a bit, then send a 'hello' packet for handshake (optional)
+                    delay(100)
+                    try {
+                        udpSocket?.let { sock ->
+                            val buf = "hello".toByteArray()
+                            val packet =
+                                DatagramPacket(buf, buf.size, InetSocketAddress(serverIp, dataPort))
+                            sock.send(packet)
+                            Log.d(
+                                TAG,
+                                "UDP: Sent initial handshake to $serverIp:$dataPort from port ${sock.localPort}"
+                            )
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Error sending initial UDP handshake", e)
+                    }
+                }
+
+                // Tell server to start UDP at desired rate
+                GlobalScope.launch(udpContext) {
+                    sendControlCommand("START_UDP $desiredRate", serverIp, controlPort)
                 }
             }
 
-            // Tell server to start UDP at desired rate
-            GlobalScope.launch(udpContext) {
-                sendControlCommand("START_UDP $desiredRate", serverIp, controlPort)
-            }
+            // Start 10ms collector + 1s averaging
+            startCollectorThread(serverIp, controlPort)
+            startAveragingThread(serverIp, controlPort)
         }
-
-        // Start 10ms collector + 1s averaging
-        startCollectorThread(serverIp, controlPort)
-        startAveragingThread(serverIp, controlPort)
     }
 
     /**
@@ -267,29 +287,33 @@ class MainActivity : ComponentActivity() {
     private fun stopTest(mode: String, serverIp: String, controlPort: Int) {
         Log.d(TAG, "stopTest: mode=$mode")
 
-        // Send STOP commands
+        // Run the "network" parts of stopTest in a background IO coroutine
         GlobalScope.launch(Dispatchers.IO) {
-            sendControlCommand("STOP_TCP", serverIp, controlPort)
-            sendControlCommand("STOP_UDP", serverIp, controlPort)
+            // Because sendLine() does network I/O, do it here on IO dispatcher:
+            controlClient?.sendLine("STOP_TCP")
+            controlClient?.sendLine("STOP_UDP")
+
+            // If UDP mode, close the UDP socket
+            if (mode == "UDP") {
+                udpSocket?.close()
+                udpSocket = null
+                Log.d(TAG, "UDP: Socket closed")
+            }
+
+            // Optionally close the persistent controlClient
+            controlClient?.disconnect()
+            controlClient = null
         }
 
-        // Cancel receiving
-        receivingJob?.cancel()
-        receivingJob = null
-
-        // Stop collector and averaging threads
-        stopCollectorThread()
-        stopAveragingThread()
-
-        // Reset UI throughput
+        // Meanwhile, do any purely UI-related work on the main thread
+        // For instance, resetting the UI throughput can happen immediately:
         _throughput.value = "0.0"
 
-        // If UDP mode, close the socket
-        if (mode == "UDP") {
-            udpSocket?.close()
-            udpSocket = null
-            Log.d(TAG, "UDP: Socket closed")
-        }
+        // Stop your threads/jobs as well (this is safe on main):
+        receivingJob?.cancel()
+        receivingJob = null
+        stopCollectorThread()
+        stopAveragingThread()
     }
 
     /**
@@ -470,7 +494,7 @@ class MainActivity : ComponentActivity() {
                 if (csvData.isNotEmpty()) {
                     // Instead of blocking, do an async job:
                     GlobalScope.launch(Dispatchers.IO) {
-                        sendCsvLogs(csvData, serverIp, controlPort)
+                        sendCsvLogs(csvData)
                     }
                 }
 
@@ -524,20 +548,15 @@ class MainActivity : ComponentActivity() {
     /**
      * Send CSV logs to the server (batch).
      */
-    private fun sendCsvLogs(csvData: String, serverIp: String, serverPort: Int) {
-        try {
-            Socket(serverIp, serverPort).use { sock ->
-                sock.getOutputStream().apply {
-                    write("CSV_LOGS\n".toByteArray())
-                    write(csvData.toByteArray())
-                    write("\n".toByteArray())
-                    flush()
-                }
-            }
-            Log.d(TAG, "Sent CSV logs to server.")
-        } catch (e: Exception) {
-            Log.e(TAG, "Error sending CSV logs to server", e)
+    private fun sendCsvLogs(csvData: String) {
+        // Over the same persistent connection:
+        controlClient?.sendLine("CSV_LOGS")
+        // Then the CSV lines, followed by an empty line:
+        csvData.split("\n").forEach {
+            controlClient?.sendLine(it)
         }
+        // send a blank line to mark the end
+        controlClient?.sendLine("")
     }
 
     /**

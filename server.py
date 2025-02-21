@@ -6,128 +6,81 @@ import threading
 import time
 import datetime
 
-"""
-Usage:
-  python3 server.py <CONTROL_PORT> <DATA_PORT>
-Example:
-  python3 server.py 8889 8890
+# Default ports if none given
+CONTROL_PORT = 8889
+DATA_PORT = 8890
 
-Features:
-- A control server listening on CONTROL_PORT (TCP) for commands:
-    - START_TCP <rate>
-    - STOP_TCP
-    - START_UDP <rate>
-    - STOP_UDP
-    - CSV_LOGS ...
-- A TCP data thread listening on DATA_PORT for TCP connections (downlink).
-- A UDP data thread listening on DATA_PORT for an initial "hello" from the phone,
-  then sending UDP traffic back to that phone IP:port at the requested rate.
-"""
+if len(sys.argv) >= 3:
+    CONTROL_PORT = int(sys.argv[1])
+    DATA_PORT = int(sys.argv[2])
 
-if len(sys.argv) < 3:
-    print("Usage: python3 server.py <CONTROL_PORT> <DATA_PORT>")
-    sys.exit(1)
+# Events and rate variables
+stop_server_event = threading.Event()         # entire server shutdown
+can_send_tcp_event = threading.Event()        # whether to send TCP data
+can_send_udp_event = threading.Event()        # whether to send UDP data
 
-CONTROL_PORT = int(sys.argv[1])
-DATA_PORT = int(sys.argv[2])
+current_send_rate_tcp = 0.0  # in Mbps
+current_send_rate_udp = 0.0  # in Mbps
 
-# Thread/event variables
-stop_server_event = threading.Event()      # entire server shutdown
-can_send_tcp_event = threading.Event()     # whether to send TCP data
-can_send_udp_event = threading.Event()     # whether to send UDP data
+phone_addr = None              # (ip, port) for UDP
+current_tcp_conn = None        # track active TCP data connection (if any)
 
-current_send_rate_tcp = None  # in Mbps, optional rate for TCP
-current_send_rate_udp = None  # in Mbps, optional rate for UDP
-
-# -- Variables for CSV logging --
-current_log_filename = None   # e.g. "tcp_2025_02_08_19_45_01.csv"
-current_protocol = None       # "tcp" or "udp"
-
-# >>> CHANGED: track the UDP phone address in a global so we can reset it easily
-phone_addr = None
-
-# >>> CHANGED: track the active TCP connection (optional) so we can close on STOP
-current_tcp_conn = None
-
+current_log_filename = None
+current_protocol = None
 
 def start_new_log_file(protocol: str):
     """
-    Create a fresh CSV log file for the given protocol ('tcp' or 'udp'),
-    write the CSV header, and set current_log_filename/current_protocol.
+    Create a new CSV log file for the given protocol ('tcp' or 'udp'),
+    write the CSV header, and track it globally.
     """
     global current_log_filename, current_protocol
-
     now_str = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
     current_log_filename = f"{protocol}_{now_str}.csv"
     current_protocol = protocol
 
     os.makedirs("logs", exist_ok=True)
     path = os.path.join("logs", current_log_filename)
-
-    # Write the header line at the top of this file
     with open(path, "w") as f:
-        f.write("time,time_ms,throughput\n")
-
-    print(f"[{protocol.upper()}] Created new log file '{current_log_filename}' with header.")
-
+        f.write("time,time_ms,throughput\n")  # CSV header
+    print(f"[{protocol.upper()}] Created log file '{current_log_filename}'")
 
 def append_csv_logs(csv_data: str):
     """
-    Append CSV logs to the current file in logs/ folder.
-    If no current protocol is set, we use 'unknown' + timestamp.
+    Append CSV logs to current_log_filename if set,
+    or create an 'unknown' file if none set.
     """
     global current_log_filename, current_protocol
 
-    # If we have no current log file, create a fallback with "unknown"
     if not current_log_filename:
         now_str = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
         current_log_filename = f"unknown_{now_str}.csv"
         current_protocol = "unknown"
-
         os.makedirs("logs", exist_ok=True)
         path = os.path.join("logs", current_log_filename)
         with open(path, "w") as f:
-            f.write("time,time_ms,throughput\n")   # Write a header even for unknown
+            f.write("time,time_ms,throughput\n")  # header for unknown
 
     path = os.path.join("logs", current_log_filename)
     with open(path, "a") as f:
-        # We append a newline so each CSV_LOGS call is appended as a new row
         f.write(csv_data + "\n")
 
     print(f"[{current_protocol.upper()}] Appended CSV logs to {path}.")
 
-
 def tcp_data_thread():
     """
-    Listens on DATA_PORT (TCP).
-    When START_TCP <rate> is issued, we begin sending payload data as soon as a client connects.
-    If STOP_TCP is issued, we stop sending.
+    Listens on DATA_PORT (TCP) for the actual data connection from the phone.
+    If 'can_send_tcp_event' is set, we send data at the chosen rate (if any).
     """
     global current_send_rate_tcp, current_tcp_conn
-
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
-    # Increase buffers
-    buffer_size = 16 * 1024 * 1024
-    s.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, buffer_size)
-    s.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, buffer_size)
-
-    try:
-        # Attempt to set some TCP-specific options (may fail on some OS)
-        s.setsockopt(socket.IPPROTO_TCP, socket.TCP_CONGESTION, b"cubic")
-        print("[TCP] Set congestion control to cubic")
-        s.setsockopt(socket.IPPROTO_TCP, socket.TCP_SLOW_START_AFTER_IDLE, 0)
-        print("[TCP] Disabled slow start after idle")
-    except Exception as e:
-        print(f"[TCP] Warning: could not set TCP options: {e}")
 
     try:
         s.bind(('', DATA_PORT))
         s.listen(1)
-        print(f"[TCP] Listening (downlink) on port {DATA_PORT}")
+        print(f"[TCP] Listening for data-plane on port {DATA_PORT}")
     except Exception as e:
-        print(f"[TCP] Failed to bind on {DATA_PORT}: {e}")
+        print(f"[TCP] Bind/listen error on port {DATA_PORT}: {e}")
         return
 
     s.settimeout(1.0)
@@ -138,139 +91,102 @@ def tcp_data_thread():
         try:
             try:
                 conn, addr = s.accept()
-                print(f"[TCP] Accepted connection from {addr}")
-
-                # Track the active connection globally if you want to close on STOP
+                print(f"[TCP] Accepted data connection from {addr}")
                 current_tcp_conn = conn
-
-                # Also set SNDBUF on the accepted socket
-                conn.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, buffer_size)
-                try:
-                    conn.setsockopt(socket.IPPROTO_TCP, socket.TCP_CONGESTION, b"cubic")
-                    conn.setsockopt(socket.IPPROTO_TCP, socket.TCP_SLOW_START_AFTER_IDLE, 0)
-                except:
-                    pass
-
                 conn.settimeout(1.0)
                 last_send_time = time.time()
-
             except socket.timeout:
                 continue
 
-            # Main sending loop
+            # Sending loop
             while not stop_server_event.is_set():
                 if not can_send_tcp_event.is_set():
-                    # If we are told "STOP_TCP", we clear the event => wait here
                     time.sleep(0.1)
                     continue
 
-                try:
-                    # Optional "rate limit" logic for TCP:
-                    if current_send_rate_tcp and current_send_rate_tcp > 0:
-                        # current_send_rate_tcp is in Mbps
-                        target_bytes_per_sec = (current_send_rate_tcp * 1_000_000) / 8.0
-                        target_interval = len(payload) / target_bytes_per_sec
-                        elapsed = time.time() - last_send_time
-                        if elapsed < target_interval:
-                            time.sleep(target_interval - elapsed)
+                # Optional "rate limit" logic
+                if current_send_rate_tcp > 0:
+                    target_bps = (current_send_rate_tcp * 1_000_000) / 8.0
+                    interval = len(payload) / target_bps
+                    elapsed = time.time() - last_send_time
+                    if elapsed < interval:
+                        time.sleep(interval - elapsed)
 
+                try:
                     conn.sendall(payload)
                     last_send_time = time.time()
-
-                except socket.timeout:
-                    continue
                 except (BrokenPipeError, ConnectionResetError):
                     print("[TCP] Client disconnected.")
                     break
-
-            if conn:
-                conn.close()
-                current_tcp_conn = None
-
         except Exception as e:
-            print(f"[TCP] Error in accept/send loop: {e}")
+            print(f"[TCP] Error in data thread: {e}")
+        finally:
             if conn:
                 conn.close()
-                current_tcp_conn = None
+            current_tcp_conn = None
 
     s.close()
     print("[TCP] tcp_data_thread stopped.")
 
-
 def udp_data_thread():
     """
-    Continuously:
-    - If we don't know phone_addr yet, wait for a packet from the phone.
-    - Once we have phone_addr, if can_send_udp_event is set, send data at the configured rate.
-    - If STOP_UDP is called (phone_addr is set to None), we revert to waiting for a new packet.
+    Binds to DATA_PORT (UDP). If phone_addr is known and can_send_udp_event is set,
+    send UDP data at the chosen rate. If phone_addr is None, wait for a packet from phone.
     """
-    global current_send_rate_udp, phone_addr
-
+    global phone_addr, current_send_rate_udp
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-    send_buffer_size = s.getsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF)
-    print(f"[UDP] Send buffer size: {send_buffer_size} bytes")
-
     try:
         s.bind(('', DATA_PORT))
-        print(f"[UDP] Listening (downlink) on UDP port {DATA_PORT} for phone packets...")
+        print(f"[UDP] Listening for data-plane on port {DATA_PORT}")
     except Exception as e:
-        print(f"[UDP] Failed to bind on {DATA_PORT}: {e}")
+        print(f"[UDP] Bind error on port {DATA_PORT}: {e}")
         return
 
+    s.settimeout(1.0)
     payload = b"\x00" * 1400
-    last_log_time = time.time()
     last_send_time = time.time()
     packets_sent = 0
-
-    # We'll do non-blocking or short-timeout reads in the main loop
-    s.settimeout(1.0)
+    last_log_time = time.time()
 
     while not stop_server_event.is_set():
-        # 1) If phone_addr is None, we wait for the phone to send us *any* packet.
         if phone_addr is None:
+            # Wait for phone's initial "hello" packet
             try:
                 data, addr = s.recvfrom(2048)
                 phone_addr = addr
                 packets_sent = 0
                 last_log_time = time.time()
-                print(f"[UDP] Received first packet from {phone_addr}, will start downlink.")
+                print(f"[UDP] Received handshake from {phone_addr}, starting downlink.")
             except socket.timeout:
-                # No new phone packet => just loop again
                 continue
             except Exception as e:
-                print(f"[UDP] Error receiving phone packet: {e}")
+                print(f"[UDP] recvfrom error: {e}")
                 time.sleep(0.1)
-            continue  # After setting phone_addr, go to next iteration.
+            continue
 
-        # 2) If we have a known phone_addr, check whether we are allowed to send data.
         if not can_send_udp_event.is_set():
-            # We are told STOP_UDP or just not started yet => do nothing but sleep
             time.sleep(0.1)
             continue
 
-        # 3) If we get here, we have phone_addr and we want to send data.
-        try:
-            # Optional rate-limiting
-            if current_send_rate_udp and current_send_rate_udp > 0:
-                # Convert Mbps -> bytes/sec
-                target_bytes_per_sec = (current_send_rate_udp * 1_000_000) / 8.0
-                target_interval = len(payload) / target_bytes_per_sec
-                elapsed = time.time() - last_send_time
-                if elapsed < target_interval:
-                    time.sleep(target_interval - elapsed)
+        # Rate-limited send
+        if current_send_rate_udp > 0:
+            target_bps = (current_send_rate_udp * 1_000_000) / 8.0
+            interval = len(payload) / target_bps
+            elapsed = time.time() - last_send_time
+            if elapsed < interval:
+                time.sleep(interval - elapsed)
 
+        try:
             s.sendto(payload, phone_addr)
             packets_sent += 1
             last_send_time = time.time()
 
-            # Log every 1 second
-            now = time.time()
-            if now - last_log_time >= 1.0:
-                print(f"[UDP] Sent {packets_sent} packets in the last second to {phone_addr}")
+            if (time.time() - last_log_time) >= 1.0:
+                print(f"[UDP] Sent {packets_sent} pkts/sec to {phone_addr}")
                 packets_sent = 0
-                last_log_time = now
+                last_log_time = time.time()
 
         except Exception as e:
             print(f"[UDP] sendto error: {e}")
@@ -279,174 +195,163 @@ def udp_data_thread():
     s.close()
     print("[UDP] udp_data_thread stopped.")
 
-
-
-def handle_control_connection(conn, addr):
+def handle_persistent_client(conn, addr):
     """
-    Receives text commands like:
-      START_TCP <rate>
-      STOP_TCP
-      START_UDP <rate>
-      STOP_UDP
-      CSV_LOGS ...
-    Now sends "OK" acknowledgment for START/STOP commands.
+    Reads commands from a single persistent connection:
+      - START_TCP <rate>
+      - STOP_TCP
+      - START_UDP <rate>
+      - STOP_UDP
+      - CSV_LOGS <batchId> (followed by lines of CSV)
+    We'll read until client disconnects.
     """
-    global current_send_rate_tcp
-    global current_send_rate_udp
-    global current_log_filename, current_protocol
+    global current_send_rate_tcp, current_send_rate_udp
     global phone_addr, current_tcp_conn
 
-    def send_ack(success=True):
-        try:
-            conn.sendall(b"OK\n" if success else b"ERROR\n")
-        except:
-            pass
+    reader = conn.makefile('r')  # text-mode file for line-by-line reading
 
     try:
-        # Use buffered reader for line-by-line reading
-        reader = conn.makefile('r')
-        data = reader.readline().strip()
-        
-        if not data:
-            conn.close()
-            return
+        while True:
+            line = reader.readline()
+            if not line:
+                # Client closed connection
+                break
 
-        print("Control from", addr, "->", data)
+            line = line.strip()
+            if not line:
+                continue
 
-        if data.startswith("CSV_LOGS"):
-            # For CSV_LOGS, continue reading all lines
-            csv_lines = []
-            while True:
-                line = reader.readline()
-                if not line:
-                    break
-                csv_lines.append(line.strip())
-            
-            if csv_lines:
-                csv_data = "\n".join(csv_lines)
-                append_csv_logs(csv_data)
+            print(f"[CONTROL] From {addr}: {line}")
 
-        elif data.startswith("START_TCP"):
-            # Example: "START_TCP 500Mbps"
-            parts = data.split()
-            success = False
-            if len(parts) >= 2:
-                rate_str = parts[1]
-                try:
-                    rate_value = float(''.join(c for c in rate_str if c.isdigit() or c == '.'))
-                    current_send_rate_tcp = rate_value
-                    print(f"[CONTROL] START_TCP with rate {rate_value} Mbps")
-                    success = True
-                except ValueError:
-                    print("[CONTROL] Could not parse TCP rate; ignoring")
+            if line.startswith("CSV_LOGS"):
+                # Expect to read CSV lines until we can't read more
+                # (In practice, you might want a length or delimiter.)
+                parts = line.split()
+                batch_id = -1
+                if len(parts) >= 2:
+                    try:
+                        batch_id = int(parts[1])
+                    except ValueError:
+                        pass
 
-            if success:
+                # read the rest of the lines until an empty line or EOF
+                csv_lines = []
+                # Here we read until the next blank line or EOF
+                # You could also define a number-of-lines approach, etc.
+                while True:
+                    next_line = reader.readline()
+                    if not next_line:
+                        # socket closed
+                        break
+                    next_line = next_line.rstrip('\n')
+                    if next_line == "":
+                        # blank line => end of CSV
+                        break
+                    csv_lines.append(next_line)
+
+                if csv_lines:
+                    csv_data = "\n".join(csv_lines)
+                    append_csv_logs(csv_data)
+                # (No need to respond with "OK" unless you want to.)
+
+            elif line.startswith("START_TCP"):
+                # "START_TCP 5" => 5 Mbps
+                parts = line.split()
+                rate_val = 0.0
+                if len(parts) >= 2:
+                    try:
+                        rate_val = float(parts[1])
+                    except ValueError:
+                        rate_val = 0.0
+                current_send_rate_tcp = rate_val
                 can_send_tcp_event.set()
                 start_new_log_file("tcp")
-                send_ack(True)
-            else:
-                send_ack(False)
+                print(f"[CONTROL] START_TCP with rate {rate_val} Mbps")
 
-        elif data.startswith("STOP_TCP"):
-            print("[CONTROL] STOP_TCP => can_send_tcp_event.clear()")
-            can_send_tcp_event.clear()
-            current_send_rate_tcp = None
+            elif line.startswith("STOP_TCP"):
+                can_send_tcp_event.clear()
+                current_send_rate_tcp = 0.0
+                # Optionally close the data-plane connection:
+                if current_tcp_conn:
+                    try:
+                        current_tcp_conn.close()
+                    except:
+                        pass
+                    current_tcp_conn = None
+                print("[CONTROL] STOP_TCP => done")
 
-            if current_tcp_conn:
-                try:
-                    current_tcp_conn.close()
-                except:
-                    pass
-                current_tcp_conn = None
-            
-            send_ack(True)
-
-        elif data.startswith("START_UDP"):
-            # Example: "START_UDP 200Mbps"
-            parts = data.split()
-            success = False
-            if len(parts) >= 2:
-                rate_str = parts[1]
-                try:
-                    rate_value = float(''.join(c for c in rate_str if c.isdigit() or c == '.'))
-                    current_send_rate_udp = rate_value
-                    print(f"[CONTROL] START_UDP with rate {rate_value} Mbps")
-                    success = True
-                except ValueError:
-                    print("[CONTROL] Could not parse UDP rate; ignoring")
-
-            if success:
+            elif line.startswith("START_UDP"):
+                # "START_UDP 10" => 10 Mbps
+                parts = line.split()
+                rate_val = 0.0
+                if len(parts) >= 2:
+                    try:
+                        rate_val = float(parts[1])
+                    except ValueError:
+                        rate_val = 0.0
+                current_send_rate_udp = rate_val
                 can_send_udp_event.set()
                 start_new_log_file("udp")
-                send_ack(True)
+                print(f"[CONTROL] START_UDP with rate {rate_val} Mbps")
+
+            elif line.startswith("STOP_UDP"):
+                can_send_udp_event.clear()
+                current_send_rate_udp = 0.0
+                phone_addr = None
+                print("[CONTROL] STOP_UDP => done")
+
             else:
-                send_ack(False)
-
-        elif data.startswith("STOP_UDP"):
-            print("[CONTROL] STOP_UDP => can_send_udp_event.clear()")
-            can_send_udp_event.clear()
-            current_send_rate_udp = None
-            phone_addr = None
-            send_ack(True)
-
-        else:
-            print("[CONTROL] Unknown command:", data)
-            send_ack(False)
+                print("[CONTROL] Unknown command:", line)
 
     except Exception as e:
-        print(f"[CONTROL] Error handling connection: {e}")
-        try:
-            send_ack(False)
-        except:
-            pass
-    finally:
-        try:
-            conn.close()
-        except:
-            pass
+        print(f"[CONTROL] Error reading commands from {addr}: {e}")
 
+    finally:
+        conn.close()
+        print(f"[CONTROL] Connection from {addr} closed.")
 
 def control_server():
     """
-    Listens on CONTROL_PORT for commands (TCP).
+    Accepts new connections on CONTROL_PORT; for each connection, 
+    we run 'handle_persistent_client' in a separate thread.
     """
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind(('', CONTROL_PORT))
     s.listen(5)
-    print(f"[CONTROL] Listening on port {CONTROL_PORT} for commands (TCP). Data port={DATA_PORT}")
+    print(f"[CONTROL] Listening on port {CONTROL_PORT}, data port={DATA_PORT}")
 
     s.settimeout(1.0)
     while not stop_server_event.is_set():
         try:
-            conn, caddr = s.accept()
-            threading.Thread(
-                target=handle_control_connection,
-                args=(conn, caddr),
+            conn, addr = s.accept()
+            print(f"[CONTROL] Accepted control connection from {addr}")
+            th = threading.Thread(
+                target=handle_persistent_client,
+                args=(conn, addr),
                 daemon=True
-            ).start()
+            )
+            th.start()
         except socket.timeout:
             continue
         except KeyboardInterrupt:
             print("[CONTROL] KeyboardInterrupt => shutting down.")
             break
         except Exception as e:
-            print("[CONTROL] Error in control_server:", e)
+            print(f"[CONTROL] Error in server accept: {e}")
             break
 
     s.close()
     print("[CONTROL] control_server stopped.")
 
-
 if __name__ == "__main__":
-    # Start data-plane threads:
+    # Start the data-plane threads
     tcp_thread = threading.Thread(target=tcp_data_thread, daemon=True)
-    tcp_thread.start()
-
     udp_thread = threading.Thread(target=udp_data_thread, daemon=True)
+    tcp_thread.start()
     udp_thread.start()
 
-    # Run the control server in the main thread
+    # Run the control server (main thread)
     try:
         control_server()
     finally:
