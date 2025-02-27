@@ -10,7 +10,7 @@ import multiprocessing
 import json  # Needed for JSON encoding/decoding
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import urllib.parse as urlparse
-from webrtc_analyzer import analyze_webrtc_dump
+#from webrtc_analyzer import analyze_webrtc_dump
 import math
 
 ###########################################################
@@ -103,21 +103,36 @@ def run_tcp_data_process(stop_event, can_send_tcp, tcp_rate_mbps, port):
     Child process function that:
       1) Binds a TCP socket on `port`
       2) Accepts connections
-      3) Sends data in small bursts to maintain `tcp_rate_mbps` if `can_send_tcp` is True
+      3) Sends data in large bursts to maintain `tcp_rate_mbps` if `can_send_tcp` is True
+      4) Optimized for multi-Gbps throughput
     """
-    print(f"[TCP-PROC] Starting TCP server on port {port}")
+    print(f"[TCP-PROC] Starting high-performance TCP server on port {port}")
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
+    
+    # Optimize socket buffers for high throughput
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 16777216)  # 16MB send buffer
+    sock.setsockopt(socket.SOL_TCP, socket.TCP_NODELAY, 1)  # Disable Nagle's algorithm
+    
     try:
         sock.bind(('', port))
-        sock.listen(1)
+        sock.listen(5)  # Increase backlog for multiple connections
         sock.settimeout(1.0)
     except Exception as e:
         print(f"[TCP-PROC] Bind/listen error: {e}")
         return
 
-    payload_chunk = b"\x00" * 8192  # 8 KB chunk
+    # Create a much larger payload chunk (1MB instead of 8KB)
+    # This significantly reduces the overhead of function calls and system calls
+    base_payload_size = 1024 * 1024  # 1MB chunk
+    payload_chunk = b"\x00" * base_payload_size
+    
+    # Pre-allocate larger chunks for different sending rates
+    payload_chunks = {
+        'small': payload_chunk,
+        'medium': payload_chunk * 4,  # 4MB
+        'large': payload_chunk * 8,   # 8MB
+    }
 
     while not stop_event.is_set():
         conn = None
@@ -127,6 +142,11 @@ def run_tcp_data_process(stop_event, can_send_tcp, tcp_rate_mbps, port):
             try:
                 conn, addr = sock.accept()
                 conn.settimeout(1.0)
+                
+                # Also set large buffer on the connection socket
+                conn.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 16777216)  # 16MB send buffer
+                conn.setsockopt(socket.SOL_TCP, socket.TCP_NODELAY, 1)
+                
                 print(f"[TCP-PROC] Accepted connection from {addr}")
             except socket.timeout:
                 continue
@@ -136,6 +156,9 @@ def run_tcp_data_process(stop_event, can_send_tcp, tcp_rate_mbps, port):
                 continue
 
             # Now send data until client disconnects or we stop
+            last_throughput_check = time.time()
+            bytes_sent_since_check = 0
+            
             while not stop_event.is_set():
                 if not can_send_tcp.value:
                     # If not allowed to send, just sleep briefly
@@ -144,27 +167,63 @@ def run_tcp_data_process(stop_event, can_send_tcp, tcp_rate_mbps, port):
 
                 # Check the current rate
                 rate = tcp_rate_mbps.value
-                if rate > 0:
-                    target_Bps = (rate * 1_000_000) / 8.0
+                
+                # Select appropriate chunk size based on rate
+                if rate <= 500:  # <= 500 Mbps
+                    current_payload = payload_chunks['small']
+                elif rate <= 2000:  # <= 2 Gbps
+                    current_payload = payload_chunks['medium']
+                else:  # > 2 Gbps
+                    current_payload = payload_chunks['large']
+                
+                # For unlimited mode or very high rates, don't throttle
+                if rate <= 0 or rate > 10000:  # Unlimited or >10 Gbps
+                    target_Bps = float('inf')
+                    # Don't sleep, just send as fast as possible
+                    try:
+                        conn.sendall(current_payload)
+                        bytes_sent_since_check += len(current_payload)
+                    except (BrokenPipeError, ConnectionResetError):
+                        print("[TCP-PROC] Client disconnected.")
+                        break
+                    except Exception as e:
+                        print(f"[TCP-PROC] sendall error: {e}")
+                        break
                 else:
-                    target_Bps = float('inf')  # unlimited if 0
-
-                before_send = time.time()
-                try:
-                    conn.sendall(payload_chunk)
-                except (BrokenPipeError, ConnectionResetError):
-                    print("[TCP-PROC] Client disconnected.")
-                    break
-                except Exception as e:
-                    print(f"[TCP-PROC] sendall error: {e}")
-                    break
-
-                elapsed = time.time() - before_send
-                if target_Bps < float('inf'):
-                    ideal_time = len(payload_chunk) / target_Bps
-                    leftover = ideal_time - elapsed
+                    # Convert rate from Mbps to Bytes per second
+                    target_Bps = (rate * 1_000_000) / 8.0
+                    
+                    # Calculate how many chunks we can send per second
+                    chunks_per_second = target_Bps / len(current_payload)
+                    # Calculate time per chunk
+                    time_per_chunk = 1.0 / chunks_per_second if chunks_per_second > 0 else 0
+                    
+                    before_send = time.time()
+                    try:
+                        conn.sendall(current_payload)
+                        bytes_sent_since_check += len(current_payload)
+                    except (BrokenPipeError, ConnectionResetError):
+                        print("[TCP-PROC] Client disconnected.")
+                        break
+                    except Exception as e:
+                        print(f"[TCP-PROC] sendall error: {e}")
+                        break
+                    
+                    elapsed = time.time() - before_send
+                    leftover = time_per_chunk - elapsed
                     if leftover > 0:
-                        time.sleep(leftover)
+                        # For more precise timing with high rates
+                        if leftover > 0.001:  # Only sleep for intervals > 1ms
+                            time.sleep(leftover)
+                
+                # Periodically calculate and log actual throughput
+                now = time.time()
+                if now - last_throughput_check >= 1.0:  # Log every second
+                    actual_duration = now - last_throughput_check
+                    actual_mbps = (bytes_sent_since_check * 8) / (actual_duration * 1_000_000)
+                    print(f"[TCP-PROC] Actual throughput: {actual_mbps:.2f} Mbps (Target: {rate} Mbps)")
+                    last_throughput_check = now
+                    bytes_sent_since_check = 0
 
         except Exception as e:
             print(f"[TCP-PROC] Error in main loop: {e}")
@@ -439,7 +498,7 @@ class ControlRequestHandler(BaseHTTPRequestHandler):
             with open(temp_filename, "wb") as f:
                 f.write(dump_data)
             try:
-                analysis_result = analyze_webrtc_dump(temp_filename, specific_log = designated_folder)
+                analysis_result = 0#analyze_webrtc_dump(temp_filename, specific_log = designated_folder)
             except Exception as e:
                 analysis_result = {"error": str(e)}
             finally:
