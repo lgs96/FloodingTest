@@ -4,25 +4,20 @@ import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TcpUdpTestScreen(
-    defaultMode: String,
-    defaultIp: String,
-    defaultControlPort: String,
-    defaultDataPort: String,
-    defaultRate: String,
+    defaultMode: String = "TCP",
+    defaultIp: String = "",
+    defaultControlPort: String = "8889",
+    defaultDataPort: String = "8890",
+    defaultRate: String = "500Mbps",
     onBackPressed: () -> Unit
 ) {
     var transportMode by remember { mutableStateOf(defaultMode) }
@@ -37,15 +32,6 @@ fun TcpUdpTestScreen(
     // Save settings whenever they change
     LaunchedEffect(transportMode, serverIp, controlPort, dataPort, desiredRate) {
         saveSettings(context, transportMode, serverIp, controlPort, dataPort, desiredRate)
-    }
-
-    // Clean up when leaving the screen
-    DisposableEffect(Unit) {
-        onDispose {
-            if (tester.isTestRunning) {
-                tester.stopTest(transportMode)
-            }
-        }
     }
 
     Column(
@@ -139,9 +125,7 @@ fun TcpUdpTestScreen(
             }
             Button(
                 onClick = {
-                    tester.stopTest(
-                        transportMode
-                    )
+                    tester.stopTest(transportMode, serverIp, controlPort)
                 }
             ) {
                 Text("Stop Test")

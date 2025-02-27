@@ -14,15 +14,40 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.*
-import java.net.Socket
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import androidx.documentfile.provider.DocumentFile
 import kotlinx.coroutines.launch
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okio.BufferedSink
+import java.io.IOException
 
 private const val TAG = "FileAnalysis"
+
+// Custom RequestBody that reports progress
+class ProgressRequestBody(
+    private val data: ByteArray,
+    private val contentTypeVal: MediaType?,
+    private val onProgress: (Float) -> Unit
+) : RequestBody() {
+
+    override fun contentType() = contentTypeVal
+
+    override fun contentLength() = data.size.toLong()
+
+    override fun writeTo(sink: BufferedSink) {
+        val totalBytes = data.size.toLong()
+        var bytesWritten = 0L
+        val segmentSize = 2048
+        var offset = 0
+        while (offset < data.size) {
+            val bytesToWrite = minOf(segmentSize, data.size - offset)
+            sink.write(data, offset, bytesToWrite)
+            offset += bytesToWrite
+            bytesWritten += bytesToWrite
+            onProgress(bytesWritten.toFloat() / totalBytes.toFloat())
+        }
+    }
+}
 
 class FileAnalyzer {
     suspend fun uploadFileForAnalysis(
@@ -33,48 +58,33 @@ class FileAnalyzer {
         onProgress: (Float) -> Unit
     ): String = withContext(Dispatchers.IO) {
         try {
-            // Get file details
+            // Retrieve file details
             val documentFile = DocumentFile.fromSingleUri(context, fileUri)
             val fileName = documentFile?.name ?: "unknown"
-            val fileSize = documentFile?.length() ?: 0L
+            val inputStream = context.contentResolver.openInputStream(fileUri)
+                ?: return@withContext "Error: Unable to open file"
+            val fileBytes = inputStream.readBytes()
+            inputStream.close()
 
-            Socket(serverIp, serverPort).use { socket ->
-                val output = socket.getOutputStream().buffered()
-                val input = socket.getInputStream().bufferedReader()
+            // Construct the HTTP URL for file upload
+            val url = "http://$serverIp:$serverPort/upload_file"
+            val mediaType = "application/octet-stream".toMediaTypeOrNull()
+            val progressRequestBody = ProgressRequestBody(fileBytes, mediaType, onProgress)
 
-                // Send file name and size
-                output.write("$fileName\n".toByteArray())
-                output.write("$fileSize\n".toByteArray())
-                output.flush()
+            // Build the HTTP POST request with the file data and filename header
+            val request = Request.Builder()
+                .url(url)
+                .post(progressRequestBody)
+                .addHeader("X-Filename", fileName)
+                .build()
 
-                // Read server's ready confirmation
-                val readyResponse = input.readLine()
-                if (readyResponse != "READY") {
-                    return@withContext "Server not ready: $readyResponse"
+            val client = OkHttpClient()
+
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) {
+                    return@withContext "Server error: ${response.code}"
                 }
-
-                // Send file content
-                context.contentResolver.openInputStream(fileUri)?.use { inputStream ->
-                    val buffer = ByteArray(8192)
-                    var bytesRead: Int
-                    var totalBytesRead = 0L
-
-                    while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-                        output.write(buffer, 0, bytesRead)
-                        totalBytesRead += bytesRead
-
-                        // Update progress
-                        val progress = if (fileSize > 0) {
-                            totalBytesRead.toFloat() / fileSize.toFloat()
-                        } else 0f
-                        onProgress(progress)
-                    }
-                    output.flush()
-                }
-
-                // Read analysis result
-                val result = input.readLine() ?: "No response from server"
-                return@withContext result
+                return@withContext response.body?.string() ?: "No response from server"
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error uploading file", e)
@@ -90,8 +100,8 @@ fun FileAnalysisScreen(
 ) {
     val context = LocalContext.current
 
-    // Load default settings
-    val prefs = context.getSharedPreferences("file_analysis_settings", Context.MODE_PRIVATE)
+    // Load default server settings
+    val prefs = context.getSharedPreferences("file_analysis_settings", android.content.Context.MODE_PRIVATE)
     val defaultIp = prefs.getString("server_ip", "") ?: ""
     val defaultPort = prefs.getString("server_port", "") ?: ""
 
@@ -105,9 +115,9 @@ fun FileAnalysisScreen(
 
     val fileAnalyzer = remember { FileAnalyzer() }
 
-    // Save settings whenever they change
+    // Save server settings when they change
     LaunchedEffect(serverIp, serverPort) {
-        val sp = context.getSharedPreferences("file_analysis_settings", Context.MODE_PRIVATE)
+        val sp = context.getSharedPreferences("file_analysis_settings", android.content.Context.MODE_PRIVATE)
         sp.edit().apply {
             putString("server_ip", serverIp)
             putString("server_port", serverPort)
@@ -115,11 +125,11 @@ fun FileAnalysisScreen(
         }
     }
 
-    // File picker for documents
+    // File picker for document selection
     val documentPicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
+        if (result.resultCode == android.app.Activity.RESULT_OK) {
             result.data?.data?.let { uri ->
                 selectedFile = uri
                 context.contentResolver.query(uri, null, null, null, null)?.use { cursor ->
@@ -153,7 +163,7 @@ fun FileAnalysisScreen(
             modifier = Modifier.padding(bottom = 24.dp)
         )
 
-        // Server configuration
+        // Server configuration fields
         OutlinedTextField(
             value = serverIp,
             onValueChange = { serverIp = it },
@@ -172,11 +182,11 @@ fun FileAnalysisScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // File selection
+        // File selection button
         Button(
             onClick = {
-                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                    addCategory(Intent.CATEGORY_OPENABLE)
+                val intent = android.content.Intent(android.content.Intent.ACTION_OPEN_DOCUMENT).apply {
+                    addCategory(android.content.Intent.CATEGORY_OPENABLE)
                     type = "*/*"
                 }
                 documentPicker.launch(intent)
@@ -188,7 +198,7 @@ fun FileAnalysisScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Show selected file name
+        // Display selected file name
         Text(
             text = "Selected: $fileName",
             style = MaterialTheme.typography.bodyMedium
@@ -196,7 +206,7 @@ fun FileAnalysisScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Upload progress
+        // Display upload progress if uploading
         if (isUploading) {
             LinearProgressIndicator(
                 progress = uploadProgress,
@@ -208,7 +218,7 @@ fun FileAnalysisScreen(
             )
         }
 
-        // Upload button
+        // Button to trigger file upload and analysis
         Button(
             onClick = {
                 selectedFile?.let { uri ->
@@ -242,7 +252,7 @@ fun FileAnalysisScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Analysis results
+        // Display analysis results when available
         if (analysisResult.isNotEmpty()) {
             Card(
                 modifier = Modifier
@@ -250,8 +260,7 @@ fun FileAnalysisScreen(
                     .padding(vertical = 8.dp)
             ) {
                 Column(
-                    modifier = Modifier
-                        .padding(16.dp)
+                    modifier = Modifier.padding(16.dp)
                 ) {
                     Text(
                         text = "Analysis Results:",

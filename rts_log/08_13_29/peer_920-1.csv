@@ -1,0 +1,5 @@
+sample_id,fps,frames_received,frames_decoded,frames_dropped,decode_time,bitrate_received,round_trip_time
+0,57.00,,,0.00,0.00,0.00,0.00
+1,58.00,60.50,60.50,0.00,1.46,2.11,42.00
+2,58.00,58.08,58.08,0.00,1.18,1.97,42.00
+3,57.00,57.01,57.01,0.00,1.18,2.02,42.00

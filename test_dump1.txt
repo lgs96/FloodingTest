@@ -1,0 +1,2432 @@
+{
+ "getUserMedia": [],
+ "PeerConnections": {
+  "920-1": {
+   "pid": 1059196,
+   "rtcConfiguration": "{ iceServers: [stun:stun.l.google.com:19302, stun:stun2.l.google.com:19302], iceTransportPolicy: all, bundlePolicy: balanced, rtcpMuxPolicy: require, iceCandidatePoolSize: 0 }",
+   "stats": {
+    "AP-kind": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "media-playout",
+     "values": "[\"audio\",\"audio\",\"audio\",\"audio\"]"
+    },
+    "AP-synthesizedSamplesDuration": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "media-playout",
+     "values": "[0,0,0,0]"
+    },
+    "AP-synthesizedSamplesEvents": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "media-playout",
+     "values": "[0,0,0,0]"
+    },
+    "AP-totalSamplesDuration": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "media-playout",
+     "values": "[480.34,480.61,481.6,482.6]"
+    },
+    "AP-totalPlayoutDelay": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "media-playout",
+     "values": "[2642026.849749,2643518.939733,2648959.572168,2654461.873602]"
+    },
+    "AP-totalSamplesCount": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "media-playout",
+     "values": "[21182994,21194901,21238560,21282660]"
+    },
+    "AP-timestamp": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "media-playout",
+     "values": "[29609000.89,29609265.348,29610263.948,29611263.742]"
+    },
+    "CF31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3-fingerprint": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "certificate",
+     "values": "[\"31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3\",\"31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3\",\"31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3\",\"31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3\"]"
+    },
+    "CF31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3-fingerprintAlgorithm": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "certificate",
+     "values": "[\"sha-256\",\"sha-256\",\"sha-256\",\"sha-256\"]"
+    },
+    "CF31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3-base64Certificate": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "certificate",
+     "values": "[\"MIIBFDCBvKADAgECAghMkQOYxANrzTAKBggqhkjOPQQDAjARMQ8wDQYDVQQDDAZXZWJSVEMwHhcNMjUwMjE5MDI1MjAwWhcNMjUwMzIyMDI1MjAwWjARMQ8wDQYDVQQDDAZXZWJSVEMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQxVCRwxx26KQkJjT5ivRfuc80M0ROJ+sw5/4bK1tV6RvnLjLPo9OlsQ8XmggaGgR5h5m9zHQI/52JzrGOVBzlhMAoGCCqGSM49BAMCA0cAMEQCIGyYzoBVy45RZ8GfRxqQHGM7TtCM/bD/68nrjMGN32cFAiAIz8XoAUlfqJq5DHGUdTt20DkwCEywrQruCuLhhGVMeQ==\",\"MIIBFDCBvKADAgECAghMkQOYxANrzTAKBggqhkjOPQQDAjARMQ8wDQYDVQQDDAZXZWJSVEMwHhcNMjUwMjE5MDI1MjAwWhcNMjUwMzIyMDI1MjAwWjARMQ8wDQYDVQQDDAZXZWJSVEMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQxVCRwxx26KQkJjT5ivRfuc80M0ROJ+sw5/4bK1tV6RvnLjLPo9OlsQ8XmggaGgR5h5m9zHQI/52JzrGOVBzlhMAoGCCqGSM49BAMCA0cAMEQCIGyYzoBVy45RZ8GfRxqQHGM7TtCM/bD/68nrjMGN32cFAiAIz8XoAUlfqJq5DHGUdTt20DkwCEywrQruCuLhhGVMeQ==\",\"MIIBFDCBvKADAgECAghMkQOYxANrzTAKBggqhkjOPQQDAjARMQ8wDQYDVQQDDAZXZWJSVEMwHhcNMjUwMjE5MDI1MjAwWhcNMjUwMzIyMDI1MjAwWjARMQ8wDQYDVQQDDAZXZWJSVEMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQxVCRwxx26KQkJjT5ivRfuc80M0ROJ+sw5/4bK1tV6RvnLjLPo9OlsQ8XmggaGgR5h5m9zHQI/52JzrGOVBzlhMAoGCCqGSM49BAMCA0cAMEQCIGyYzoBVy45RZ8GfRxqQHGM7TtCM/bD/68nrjMGN32cFAiAIz8XoAUlfqJq5DHGUdTt20DkwCEywrQruCuLhhGVMeQ==\",\"MIIBFDCBvKADAgECAghMkQOYxANrzTAKBggqhkjOPQQDAjARMQ8wDQYDVQQDDAZXZWJSVEMwHhcNMjUwMjE5MDI1MjAwWhcNMjUwMzIyMDI1MjAwWjARMQ8wDQYDVQQDDAZXZWJSVEMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQxVCRwxx26KQkJjT5ivRfuc80M0ROJ+sw5/4bK1tV6RvnLjLPo9OlsQ8XmggaGgR5h5m9zHQI/52JzrGOVBzlhMAoGCCqGSM49BAMCA0cAMEQCIGyYzoBVy45RZ8GfRxqQHGM7TtCM/bD/68nrjMGN32cFAiAIz8XoAUlfqJq5DHGUdTt20DkwCEywrQruCuLhhGVMeQ==\"]"
+    },
+    "CF31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3-timestamp": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "certificate",
+     "values": "[29609000.89,29609265.348,29610263.948,29611263.742]"
+    },
+    "CF78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A-fingerprint": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "certificate",
+     "values": "[\"78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A\",\"78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A\",\"78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A\",\"78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A\"]"
+    },
+    "CF78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A-fingerprintAlgorithm": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "certificate",
+     "values": "[\"sha-256\",\"sha-256\",\"sha-256\",\"sha-256\"]"
+    },
+    "CF78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A-base64Certificate": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "certificate",
+     "values": "[\"MIIBMDCB16ADAgECAgUA78EpVDAKBggqhkjOPQQDAjAgMQ4wDAYDVQQKDAVKYW51czEOMAwGA1UEAwwFSmFudXMwHhcNMjMxMjE5MTQ1NTE1WhcNMjUxMjE4MTQ1NTE1WjAgMQ4wDAYDVQQKDAVKYW51czEOMAwGA1UEAwwFSmFudXMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQhBbrinELb/gw0qFZrwVUaoHOxeP053RnGT+PEz3enE3N90nAXCOtdQOf2VRLCl9QYlh+SFElGLx88HoqRO/BKMAoGCCqGSM49BAMCA0gAMEUCIQCXEDsIpYhFaqWq/0ZJPTwdXrxe1AJ4hQ+O8iU2IL0nUAIgIP26VngDWVXF8+B9u9FORAY/rrtFdir9mPX8fAnVBT8=\",\"MIIBMDCB16ADAgECAgUA78EpVDAKBggqhkjOPQQDAjAgMQ4wDAYDVQQKDAVKYW51czEOMAwGA1UEAwwFSmFudXMwHhcNMjMxMjE5MTQ1NTE1WhcNMjUxMjE4MTQ1NTE1WjAgMQ4wDAYDVQQKDAVKYW51czEOMAwGA1UEAwwFSmFudXMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQhBbrinELb/gw0qFZrwVUaoHOxeP053RnGT+PEz3enE3N90nAXCOtdQOf2VRLCl9QYlh+SFElGLx88HoqRO/BKMAoGCCqGSM49BAMCA0gAMEUCIQCXEDsIpYhFaqWq/0ZJPTwdXrxe1AJ4hQ+O8iU2IL0nUAIgIP26VngDWVXF8+B9u9FORAY/rrtFdir9mPX8fAnVBT8=\",\"MIIBMDCB16ADAgECAgUA78EpVDAKBggqhkjOPQQDAjAgMQ4wDAYDVQQKDAVKYW51czEOMAwGA1UEAwwFSmFudXMwHhcNMjMxMjE5MTQ1NTE1WhcNMjUxMjE4MTQ1NTE1WjAgMQ4wDAYDVQQKDAVKYW51czEOMAwGA1UEAwwFSmFudXMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQhBbrinELb/gw0qFZrwVUaoHOxeP053RnGT+PEz3enE3N90nAXCOtdQOf2VRLCl9QYlh+SFElGLx88HoqRO/BKMAoGCCqGSM49BAMCA0gAMEUCIQCXEDsIpYhFaqWq/0ZJPTwdXrxe1AJ4hQ+O8iU2IL0nUAIgIP26VngDWVXF8+B9u9FORAY/rrtFdir9mPX8fAnVBT8=\",\"MIIBMDCB16ADAgECAgUA78EpVDAKBggqhkjOPQQDAjAgMQ4wDAYDVQQKDAVKYW51czEOMAwGA1UEAwwFSmFudXMwHhcNMjMxMjE5MTQ1NTE1WhcNMjUxMjE4MTQ1NTE1WjAgMQ4wDAYDVQQKDAVKYW51czEOMAwGA1UEAwwFSmFudXMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQhBbrinELb/gw0qFZrwVUaoHOxeP053RnGT+PEz3enE3N90nAXCOtdQOf2VRLCl9QYlh+SFElGLx88HoqRO/BKMAoGCCqGSM49BAMCA0gAMEUCIQCXEDsIpYhFaqWq/0ZJPTwdXrxe1AJ4hQ+O8iU2IL0nUAIgIP26VngDWVXF8+B9u9FORAY/rrtFdir9mPX8fAnVBT8=\"]"
+    },
+    "CF78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A-timestamp": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "certificate",
+     "values": "[29609000.89,29609265.348,29610263.948,29611263.742]"
+    },
+    "CITv1_96_level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f-transportId": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "codec",
+     "values": "[\"Tv1\",\"Tv1\",\"Tv1\",\"Tv1\"]"
+    },
+    "CITv1_96_level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f-payloadType": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "codec",
+     "values": "[96,96,96,96]"
+    },
+    "CITv1_96_level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f-mimeType": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "codec",
+     "values": "[\"video/H264\",\"video/H264\",\"video/H264\",\"video/H264\"]"
+    },
+    "CITv1_96_level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f-clockRate": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "codec",
+     "values": "[90000,90000,90000,90000]"
+    },
+    "CITv1_96_level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f-sdpFmtpLine": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "codec",
+     "values": "[\"level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\",\"level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\",\"level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\",\"level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\"]"
+    },
+    "CITv1_96_level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f-timestamp": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "codec",
+     "values": "[29609000.89,29609265.348,29610263.948,29611263.742]"
+    },
+    "CP1+bQo3hy_WA18BhYu-transportId": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[\"Tv1\",\"Tv1\",\"Tv1\",\"Tv1\"]"
+    },
+    "CP1+bQo3hy_WA18BhYu-localCandidateId": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[\"I1+bQo3hy\",\"I1+bQo3hy\",\"I1+bQo3hy\",\"I1+bQo3hy\"]"
+    },
+    "CP1+bQo3hy_WA18BhYu-remoteCandidateId": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[\"IWA18BhYu\",\"IWA18BhYu\",\"IWA18BhYu\",\"IWA18BhYu\"]"
+    },
+    "CP1+bQo3hy_WA18BhYu-state": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[\"succeeded\",\"succeeded\",\"succeeded\",\"succeeded\"]"
+    },
+    "CP1+bQo3hy_WA18BhYu-priority": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[8655920682762255000,8655920682762255000,8655920682762255000,8655920682762255000]"
+    },
+    "CP1+bQo3hy_WA18BhYu-nominated": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[true,true,true,true]"
+    },
+    "CP1+bQo3hy_WA18BhYu-writable": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[true,true,true,true]"
+    },
+    "CP1+bQo3hy_WA18BhYu-packetsSent": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[2314,2315,2320,2325]"
+    },
+    "CP1+bQo3hy_WA18BhYu-[packetsSent/s]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0,3.7813187727141826,5.007009813744313,5.001030212226803]"
+    },
+    "CP1+bQo3hy_WA18BhYu-packetsReceived": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[577088,577145,577344,577548]"
+    },
+    "CP1+bQo3hy_WA18BhYu-[packetsReceived/s]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0,215.5351700447084,199.27899058702366,204.04203265885357]"
+    },
+    "CP1+bQo3hy_WA18BhYu-bytesSent": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[176091,176167,176547,176927]"
+    },
+    "CP1+bQo3hy_WA18BhYu-[bytesSent_in_bits/s]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0,2299.041813810223,3044.2619667565423,3040.6263690338965]"
+    },
+    "CP1+bQo3hy_WA18BhYu-bytesReceived": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[804828320,804900360,805154697,805415667]"
+    },
+    "CP1+bQo3hy_WA18BhYu-[bytesReceived_in_bits/s]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0,2179249.6350906375,2037548.5679972598,2088190.167175726]"
+    },
+    "CP1+bQo3hy_WA18BhYu-totalRoundTripTime": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[7.85,7.85,7.85,7.85]"
+    },
+    "CP1+bQo3hy_WA18BhYu-[totalRoundTripTime/responsesReceived]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0,0,0,0]"
+    },
+    "CP1+bQo3hy_WA18BhYu-currentRoundTripTime": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0.042,0.042,0.042,0.042]"
+    },
+    "CP1+bQo3hy_WA18BhYu-availableOutgoingBitrate": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[300000,300000,300000,300000]"
+    },
+    "CP1+bQo3hy_WA18BhYu-availableIncomingBitrate": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[36912959,36912959,36912959,36912959]"
+    },
+    "CP1+bQo3hy_WA18BhYu-requestsReceived": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[1,1,1,1]"
+    },
+    "CP1+bQo3hy_WA18BhYu-requestsSent": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[185,185,185,185]"
+    },
+    "CP1+bQo3hy_WA18BhYu-responsesReceived": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[185,185,185,185]"
+    },
+    "CP1+bQo3hy_WA18BhYu-responsesSent": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[1,1,1,1]"
+    },
+    "CP1+bQo3hy_WA18BhYu-consentRequestsSent": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[184,184,184,184]"
+    },
+    "CP1+bQo3hy_WA18BhYu-packetsDiscardedOnSend": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0,0,0,0]"
+    },
+    "CP1+bQo3hy_WA18BhYu-bytesDiscardedOnSend": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0,0,0,0]"
+    },
+    "CP1+bQo3hy_WA18BhYu-lastPacketReceivedTimestamp": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[1740020400662,1740020400939,1740020401927,1740020402933]"
+    },
+    "CP1+bQo3hy_WA18BhYu-[lastPacketReceivedTimestamp]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[\"2/19/2025, 8:00:00 PM\",\"2/19/2025, 8:00:00 PM\",\"2/19/2025, 8:00:01 PM\",\"2/19/2025, 8:00:02 PM\"]"
+    },
+    "CP1+bQo3hy_WA18BhYu-lastPacketSentTimestamp": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[1740020400575,1740020400785,1740020401825,1740020402865]"
+    },
+    "CP1+bQo3hy_WA18BhYu-[lastPacketSentTimestamp]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[\"2/19/2025, 8:00:00 PM\",\"2/19/2025, 8:00:00 PM\",\"2/19/2025, 8:00:01 PM\",\"2/19/2025, 8:00:02 PM\"]"
+    },
+    "CP1+bQo3hy_WA18BhYu-timestamp": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[29609000.89,29609265.348,29610263.948,29611263.742]"
+    },
+    "I1+bQo3hy-transportId": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"Tv1\",\"Tv1\",\"Tv1\",\"Tv1\"]"
+    },
+    "I1+bQo3hy-isRemote": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[false,false,false,false]"
+    },
+    "I1+bQo3hy-networkType": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"unknown\",\"unknown\",\"unknown\",\"unknown\"]"
+    },
+    "I1+bQo3hy-ip": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"\",\"\",\"\",\"\"]"
+    },
+    "I1+bQo3hy-address": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"\",\"\",\"\",\"\"]"
+    },
+    "I1+bQo3hy-port": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[51447,51447,51447,51447]"
+    },
+    "I1+bQo3hy-protocol": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"udp\",\"udp\",\"udp\",\"udp\"]"
+    },
+    "I1+bQo3hy-candidateType": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"host\",\"host\",\"host\",\"host\"]"
+    },
+    "I1+bQo3hy-priority": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[2113937151,2113937151,2113937151,2113937151]"
+    },
+    "I1+bQo3hy-foundation": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[2345027273,2345027273,2345027273,2345027273]"
+    },
+    "I1+bQo3hy-usernameFragment": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"vkrs\",\"vkrs\",\"vkrs\",\"vkrs\"]"
+    },
+    "I1+bQo3hy-vpn": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[false,false,false,false]"
+    },
+    "I1+bQo3hy-networkAdapterType": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"any\",\"any\",\"any\",\"any\"]"
+    },
+    "I1+bQo3hy-timestamp": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[29609000.89,29609265.348,29610263.948,29611263.742]"
+    },
+    "ITEbFELYx-transportId": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"Tv1\",\"Tv1\",\"Tv1\",\"Tv1\"]"
+    },
+    "ITEbFELYx-isRemote": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[false,false,false,false]"
+    },
+    "ITEbFELYx-networkType": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"unknown\",\"unknown\",\"unknown\",\"unknown\"]"
+    },
+    "ITEbFELYx-ip": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"128.138.244.45\",\"128.138.244.45\",\"128.138.244.45\",\"128.138.244.45\"]"
+    },
+    "ITEbFELYx-address": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"128.138.244.45\",\"128.138.244.45\",\"128.138.244.45\",\"128.138.244.45\"]"
+    },
+    "ITEbFELYx-port": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[51447,51447,51447,51447]"
+    },
+    "ITEbFELYx-protocol": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"udp\",\"udp\",\"udp\",\"udp\"]"
+    },
+    "ITEbFELYx-candidateType": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"srflx\",\"srflx\",\"srflx\",\"srflx\"]"
+    },
+    "ITEbFELYx-priority": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[1677729535,1677729535,1677729535,1677729535]"
+    },
+    "ITEbFELYx-url": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"stun:stun.l.google.com:19302\",\"stun:stun.l.google.com:19302\",\"stun:stun.l.google.com:19302\",\"stun:stun.l.google.com:19302\"]"
+    },
+    "ITEbFELYx-foundation": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[38603138,38603138,38603138,38603138]"
+    },
+    "ITEbFELYx-usernameFragment": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"vkrs\",\"vkrs\",\"vkrs\",\"vkrs\"]"
+    },
+    "ITEbFELYx-vpn": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[false,false,false,false]"
+    },
+    "ITEbFELYx-networkAdapterType": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"any\",\"any\",\"any\",\"any\"]"
+    },
+    "ITEbFELYx-timestamp": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[29609000.89,29609265.348,29610263.948,29611263.742]"
+    },
+    "ITv1V59871431-ssrc": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[59871431,59871431,59871431,59871431]"
+    },
+    "ITv1V59871431-kind": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"video\",\"video\",\"video\",\"video\"]"
+    },
+    "ITv1V59871431-transportId": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"Tv1\",\"Tv1\",\"Tv1\",\"Tv1\"]"
+    },
+    "ITv1V59871431-codecId": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"CITv1_96_level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\",\"CITv1_96_level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\",\"CITv1_96_level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\",\"CITv1_96_level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\"]"
+    },
+    "ITv1V59871431-[codec]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"H264 (96, level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f)\",\"H264 (96, level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f)\",\"H264 (96, level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f)\",\"H264 (96, level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f)\"]"
+    },
+    "ITv1V59871431-jitter": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITv1V59871431-packetsLost": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITv1V59871431-trackIdentifier": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"janusv0\",\"janusv0\",\"janusv0\",\"janusv0\"]"
+    },
+    "ITv1V59871431-mid": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"v\",\"v\",\"v\",\"v\"]"
+    },
+    "ITv1V59871431-packetsReceived": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[576614,576670,576868,577071]"
+    },
+    "ITv1V59871431-[packetsReceived/s]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,211.75385127199422,198.2775886242748,203.0418266164082]"
+    },
+    "ITv1V59871431-bytesReceived": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[781732748,781802484,782048837,782301623]"
+    },
+    "ITv1V59871431-[bytesReceived_in_bits/s]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,2109552.3674719697,1973587.0218325644,2022704.6771647434]"
+    },
+    "ITv1V59871431-headerBytesReceived": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[13838736,13840080,13844832,13849704]"
+    },
+    "ITv1V59871431-[headerBytesReceived_in_bits/s]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,40656.73944422289,38069.297015860764,38984.03071035037]"
+    },
+    "ITv1V59871431-rtxSsrc": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[50113011,50113011,50113011,50113011]"
+    },
+    "ITv1V59871431-lastPacketReceivedTimestamp": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[1740020400661.613,1740020400938.801,1740020401926.273,1740020402932.779]"
+    },
+    "ITv1V59871431-[lastPacketReceivedTimestamp]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"2/19/2025, 8:00:00 PM\",\"2/19/2025, 8:00:00 PM\",\"2/19/2025, 8:00:01 PM\",\"2/19/2025, 8:00:02 PM\"]"
+    },
+    "ITv1V59871431-jitterBufferDelay": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[243.92664399999998,244.04344799999998,244.48595999999998,244.933902]"
+    },
+    "ITv1V59871431-[jitterBufferDelay/jitterBufferEmittedCount_in_ms]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,7.78693333333346,7.629517241379199,7.858631578947575]"
+    },
+    "ITv1V59871431-jitterBufferTargetDelay": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[368.919184,369.10209299999997,369.79549199999997,370.500065]"
+    },
+    "ITv1V59871431-[jitterBufferTargetDelay/jitterBufferEmittedCount_in_ms]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,12.193933333333007,11.955155172413782,12.360929824562087]"
+    },
+    "ITv1V59871431-jitterBufferMinimumDelay": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[368.919184,369.10209299999997,369.79549199999997,370.500065]"
+    },
+    "ITv1V59871431-[jitterBufferMinimumDelay/jitterBufferEmittedCount_in_ms]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,12.193933333333007,11.955155172413782,12.360929824562087]"
+    },
+    "ITv1V59871431-jitterBufferEmittedCount": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[27962,27977,28035,28092]"
+    },
+    "ITv1V59871431-framesReceived": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[27961,27977,28035,28092]"
+    },
+    "ITv1V59871431-[framesReceived/s]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,60.50110036342692,58.08131383943403,57.01174441938556]"
+    },
+    "ITv1V59871431-[framesReceived-framesDecoded-framesDropped]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITv1V59871431-frameWidth": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[1920,1920,1920,1920]"
+    },
+    "ITv1V59871431-frameHeight": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[1080,1080,1080,1080]"
+    },
+    "ITv1V59871431-framesPerSecond": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[57,58,58,57]"
+    },
+    "ITv1V59871431-framesDecoded": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[27961,27977,28035,28092]"
+    },
+    "ITv1V59871431-[framesDecoded/s]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,60.50110036342692,58.08131383943403,57.01174441938556]"
+    },
+    "ITv1V59871431-keyFramesDecoded": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[1,1,1,1]"
+    },
+    "ITv1V59871431-[keyFramesDecoded/s]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITv1V59871431-framesDropped": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITv1V59871431-totalDecodeTime": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[97.521875,97.545312,97.61365599999999,97.680841]"
+    },
+    "ITv1V59871431-[totalDecodeTime/framesDecoded_in_ms]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,1.464812500000079,1.178344827586141,1.1786842105264763]"
+    },
+    "ITv1V59871431-totalProcessingDelay": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[342.73168799999996,342.88809699999996,343.40117499999997,343.918205]"
+    },
+    "ITv1V59871431-[totalProcessingDelay/jitterBufferEmittedCount_in_ms]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,10.427266666666432,8.846172413793228,9.070701754386558]"
+    },
+    "ITv1V59871431-totalAssemblyTime": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[23.346248,23.346745,23.347994999999997,23.349562]"
+    },
+    "ITv1V59871431-[totalAssemblyTime/framesAssembledFromMultiplePackets_in_ms]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0.031062499999956472,0.021551724137911434,0.027491228070200498]"
+    },
+    "ITv1V59871431-framesAssembledFromMultiplePackets": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[24513,24529,24587,24644]"
+    },
+    "ITv1V59871431-totalInterFrameDelay": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[472.069,472.351,473.35,474.35]"
+    },
+    "ITv1V59871431-[totalInterFrameDelay/framesDecoded_in_ms]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,17.62499999999889,17.224137931034893,17.543859649122805]"
+    },
+    "ITv1V59871431-totalSquaredInterFrameDelay": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[8.738381000001668,8.743799000001673,8.762358000001688,8.781530000001702]"
+    },
+    "ITv1V59871431-[interFrameDelayStDev_in_ms]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,5.290025992402868,4.8282327153572915,5.3445173594161055]"
+    },
+    "ITv1V59871431-pauseCount": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITv1V59871431-totalPausesDuration": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITv1V59871431-freezeCount": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITv1V59871431-totalFreezesDuration": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITv1V59871431-decoderImplementation": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"FFmpeg\",\"FFmpeg\",\"FFmpeg\",\"FFmpeg\"]"
+    },
+    "ITv1V59871431-firCount": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITv1V59871431-pliCount": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITv1V59871431-nackCount": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITv1V59871431-qpSum": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[341362,341442,341732,342016]"
+    },
+    "ITv1V59871431-[qpSum/framesDecoded]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,5,5,4.982456140350878]"
+    },
+    "ITv1V59871431-powerEfficientDecoder": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[false,false,false,false]"
+    },
+    "ITv1V59871431-minPlayoutDelay": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITv1V59871431-timestamp": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[29609000.89,29609265.348,29610263.948,29611263.742]"
+    },
+    "IWA18BhYu-transportId": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[\"Tv1\",\"Tv1\",\"Tv1\",\"Tv1\"]"
+    },
+    "IWA18BhYu-isRemote": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[true,true,true,true]"
+    },
+    "IWA18BhYu-ip": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[\"149.100.135.4\",\"149.100.135.4\",\"149.100.135.4\",\"149.100.135.4\"]"
+    },
+    "IWA18BhYu-address": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[\"149.100.135.4\",\"149.100.135.4\",\"149.100.135.4\",\"149.100.135.4\"]"
+    },
+    "IWA18BhYu-port": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[20674,20674,20674,20674]"
+    },
+    "IWA18BhYu-protocol": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[\"udp\",\"udp\",\"udp\",\"udp\"]"
+    },
+    "IWA18BhYu-candidateType": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[\"host\",\"host\",\"host\",\"host\"]"
+    },
+    "IWA18BhYu-priority": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[2015363583,2015363583,2015363583,2015363583]"
+    },
+    "IWA18BhYu-foundation": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[1,1,1,1]"
+    },
+    "IWA18BhYu-usernameFragment": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[\"AXwm\",\"AXwm\",\"AXwm\",\"AXwm\"]"
+    },
+    "IWA18BhYu-timestamp": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[29609000.89,29609265.348,29610263.948,29611263.742]"
+    },
+    "P-dataChannelsOpened": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "peer-connection",
+     "values": "[0,0,0,0]"
+    },
+    "P-dataChannelsClosed": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "peer-connection",
+     "values": "[0,0,0,0]"
+    },
+    "P-timestamp": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "peer-connection",
+     "values": "[29609000.89,29609265.348,29610263.948,29611263.742]"
+    },
+    "Tv1-bytesSent": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[176091,176167,176547,176927]"
+    },
+    "Tv1-[bytesSent_in_bits/s]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[0,2299.041813810223,3044.2619667565423,3040.6263690338965]"
+    },
+    "Tv1-packetsSent": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[2314,2315,2320,2325]"
+    },
+    "Tv1-[packetsSent/s]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[0,3.7813187727141826,5.007009813744313,5.001030212226803]"
+    },
+    "Tv1-bytesReceived": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[804828320,804900360,805154697,805415667]"
+    },
+    "Tv1-[bytesReceived_in_bits/s]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[0,2179249.6350906375,2037548.5679972598,2088190.167175726]"
+    },
+    "Tv1-packetsReceived": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[577088,577145,577344,577548]"
+    },
+    "Tv1-[packetsReceived/s]": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[0,215.5351700447084,199.27899058702366,204.04203265885357]"
+    },
+    "Tv1-dtlsState": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"connected\",\"connected\",\"connected\",\"connected\"]"
+    },
+    "Tv1-selectedCandidatePairId": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"CP1+bQo3hy_WA18BhYu\",\"CP1+bQo3hy_WA18BhYu\",\"CP1+bQo3hy_WA18BhYu\",\"CP1+bQo3hy_WA18BhYu\"]"
+    },
+    "Tv1-localCertificateId": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"CF31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3\",\"CF31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3\",\"CF31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3\",\"CF31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3\"]"
+    },
+    "Tv1-remoteCertificateId": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"CF78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A\",\"CF78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A\",\"CF78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A\",\"CF78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A\"]"
+    },
+    "Tv1-tlsVersion": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"FEFD\",\"FEFD\",\"FEFD\",\"FEFD\"]"
+    },
+    "Tv1-dtlsCipher": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\",\"TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\",\"TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\",\"TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\"]"
+    },
+    "Tv1-dtlsRole": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"client\",\"client\",\"client\",\"client\"]"
+    },
+    "Tv1-srtpCipher": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"AEAD_AES_256_GCM\",\"AEAD_AES_256_GCM\",\"AEAD_AES_256_GCM\",\"AEAD_AES_256_GCM\"]"
+    },
+    "Tv1-selectedCandidatePairChanges": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[1,1,1,1]"
+    },
+    "Tv1-iceRole": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"controlled\",\"controlled\",\"controlled\",\"controlled\"]"
+    },
+    "Tv1-iceLocalUsernameFragment": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"vkrs\",\"vkrs\",\"vkrs\",\"vkrs\"]"
+    },
+    "Tv1-iceState": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"connected\",\"connected\",\"connected\",\"connected\"]"
+    },
+    "Tv1-timestamp": {
+     "startTime": "1970-01-01T08:13:29.000Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[29609000.89,29609265.348,29610263.948,29611263.742]"
+    }
+   },
+   "updateLog": [
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "setRemoteDescription",
+     "value": "type: offer, sdp: v=0\r\no=- 1740019920083635 1 IN IP4 149.100.135.4\r\ns=Mountpoint 2140567801290081\r\nt=0 0\r\na=group:BUNDLE v\r\na=extmap-allow-mixed\r\na=msid-semantic: WMS janus\r\nm=video 9 UDP/TLS/RTP/SAVPF 96 97\r\nc=IN IP4 149.100.135.4\r\na=sendonly\r\na=mid:v\r\na=rtcp-mux\r\na=ice-ufrag:AXwm\r\na=ice-pwd:JxYoYbdirBvnFjH9k2L4AK\r\na=ice-options:trickle\r\na=fingerprint:sha-256 78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A\r\na=setup:actpass\r\na=rtpmap:96 H264/90000\r\na=fmtp:96 profile-level-id=42e01f;packetization-mode=1\r\na=rtcp-fb:96 nack\r\na=rtcp-fb:96 nack pli\r\na=rtcp-fb:96 goog-remb\r\na=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=extmap:2 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time\r\na=rtpmap:97 rtx/90000\r\na=fmtp:97 apt=96\r\na=ssrc-group:FID 59871431 50113011\r\na=msid:janus janusv0\r\na=ssrc:59871431 cname:janus\r\na=ssrc:59871431 msid:janus janusv0\r\na=ssrc:59871431 mslabel:janus\r\na=ssrc:59871431 label:janusv0\r\na=ssrc:50113011 cname:janus\r\na=ssrc:50113011 msid:janus janusv0\r\na=ssrc:50113011 mslabel:janus\r\na=ssrc:50113011 label:janusv0\r\na=candidate:1 1 udp 2015363583 149.100.135.4 20674 typ host\r\na=end-of-candidates\r\n"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "setRemoteDescriptionOnSuccess",
+     "value": ""
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "signalingstatechange",
+     "value": "have-remote-offer"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "transceiverAdded",
+     "value": "Caused by: setRemoteDescription\n\ngetTransceivers()[0]:{\n  mid:'v',\n  kind:'video',\n  sender:{\n    track:null,\n    streams:[],\n  },\n  receiver:{\n    track:'janusv0',\n    streams:['janus'],\n  },\n  direction:'recvonly',\n  currentDirection:null,\n}"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "transceiverAdded",
+     "value": "Caused by: addTransceiver\n\ngetTransceivers()[1]:{\n  mid:null,\n  kind:'audio',\n  sender:{\n    track:null,\n    streams:[],\n    encodings: [\n      {active: true, },\n    ],\n  },\n  receiver:{\n    track:'f3c844e0-8b42-4a6f-8209-96b99a032708',\n    streams:[],\n  },\n  direction:'recvonly',\n  currentDirection:null,\n}"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "createAnswer",
+     "value": "options: {, voiceActivityDetection: true}"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "createAnswerOnSuccess",
+     "value": "type: answer, sdp: v=0\r\no=- 7886521216091473281 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=group:BUNDLE v\r\na=extmap-allow-mixed\r\na=msid-semantic: WMS\r\nm=video 9 UDP/TLS/RTP/SAVPF 96 97\r\nc=IN IP4 0.0.0.0\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=ice-ufrag:vkrs\r\na=ice-pwd:Qef2ksYbKJ80jL0RJX3MxEH/\r\na=ice-options:trickle\r\na=fingerprint:sha-256 31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3\r\na=setup:active\r\na=mid:v\r\na=extmap:2 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time\r\na=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=recvonly\r\na=rtcp-mux\r\na=rtpmap:96 H264/90000\r\na=rtcp-fb:96 goog-remb\r\na=rtcp-fb:96 nack\r\na=rtcp-fb:96 nack pli\r\na=fmtp:96 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\r\na=rtpmap:97 rtx/90000\r\na=fmtp:97 apt=96\r\n"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "setLocalDescription",
+     "value": "type: answer, sdp: v=0\r\no=- 7886521216091473281 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=group:BUNDLE v\r\na=extmap-allow-mixed\r\na=msid-semantic: WMS\r\nm=video 9 UDP/TLS/RTP/SAVPF 96 97\r\nc=IN IP4 0.0.0.0\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=ice-ufrag:vkrs\r\na=ice-pwd:Qef2ksYbKJ80jL0RJX3MxEH/\r\na=ice-options:trickle\r\na=fingerprint:sha-256 31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3\r\na=setup:active\r\na=mid:v\r\na=extmap:2 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time\r\na=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=recvonly\r\na=rtcp-mux\r\na=rtpmap:96 H264/90000\r\na=rtcp-fb:96 goog-remb\r\na=rtcp-fb:96 nack\r\na=rtcp-fb:96 nack pli\r\na=fmtp:96 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\r\na=rtpmap:97 rtx/90000\r\na=fmtp:97 apt=96\r\n"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "setLocalDescriptionOnSuccess",
+     "value": ""
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "signalingstatechange",
+     "value": "stable"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "transceiverModified",
+     "value": "Caused by: setLocalDescription\n\ngetTransceivers()[0]:{\n  mid:'v',\n  kind:'video',\n  sender:{\n    track:null,\n    streams:[],\n  },\n  receiver:{\n    track:'janusv0',\n    streams:['janus'],\n  },\n  direction:'recvonly',\n  currentDirection:'recvonly',\n}"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "negotiationneeded",
+     "value": ""
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "icegatheringstatechange",
+     "value": "gathering"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "iceconnectionstatechange",
+     "value": "checking"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "connectionstatechange",
+     "value": "connecting"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "icecandidate",
+     "value": "sdpMid: v, sdpMLineIndex: 0, candidate: candidate:2345027273 1 udp 2113937151 ac9da6bb-827a-411c-86ca-d23c32d7cd7b.local 51447 typ host generation 0 ufrag vkrs network-cost 999"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "icecandidate",
+     "value": "sdpMid: v, sdpMLineIndex: 0, candidate: candidate:38603138 1 udp 1677729535 128.138.244.45 51447 typ srflx raddr 0.0.0.0 rport 0 generation 0 ufrag vkrs network-cost 999, url: stun:stun.l.google.com:19302"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "iceconnectionstatechange",
+     "value": "connected"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "icegatheringstatechange",
+     "value": "complete"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "connectionstatechange",
+     "value": "connected"
+    },
+    {
+     "time": "2/19/2025, 7:52:40 PM",
+     "type": "icecandidateerror",
+     "value": "url: stun:stun.l.google.com:19302\naddress: [0:0:0:x:x:x:x:x]\nport: 42548\nhost_candidate: [0:0:0:x:x:x:x:x]:42548\nerror_text: STUN binding request timed out.\nerror_code: 701"
+    },
+    {
+     "time": "2/19/2025, 8:00:00 PM",
+     "type": "setRemoteDescription",
+     "value": "type: offer, sdp: v=0\r\no=- 1740019920083635 1 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=group:BUNDLE v\r\na=extmap-allow-mixed\r\na=msid-semantic: WMS janus\r\nm=video 20674 UDP/TLS/RTP/SAVPF 96 97\r\nc=IN IP4 149.100.135.4\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=candidate:1 1 udp 2015363583 149.100.135.4 20674 typ host generation 0\r\na=ice-ufrag:AXwm\r\na=ice-pwd:JxYoYbdirBvnFjH9k2L4AK\r\na=ice-options:trickle\r\na=fingerprint:sha-256 78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A\r\na=setup:actpass\r\na=mid:v\r\na=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=extmap:2 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time\r\na=sendonly\r\na=msid:janus janusv0\r\na=rtcp-mux\r\na=rtpmap:96 H264/90000\r\na=rtcp-fb:96 nack\r\na=rtcp-fb:96 nack pli\r\na=rtcp-fb:96 goog-remb\r\na=fmtp:96 packetization-mode=1;profile-level-id=42e01f\r\na=rtpmap:97 rtx/90000\r\na=fmtp:97 apt=96\r\na=ssrc-group:FID 59871431 50113011\r\na=ssrc:59871431 cname:janus\r\na=ssrc:59871431 msid:janus janusv0\r\na=ssrc:50113011 cname:janus\r\na=ssrc:50113011 msid:janus janusv0\r\n"
+    },
+    {
+     "time": "2/19/2025, 8:00:00 PM",
+     "type": "setLocalDescription",
+     "value": "type: answer, sdp: v=0\r\no=- 7886521216091473281 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=group:BUNDLE v\r\na=extmap-allow-mixed\r\na=msid-semantic: WMS\r\nm=video 51447 UDP/TLS/RTP/SAVPF 96 97\r\nc=IN IP4 128.138.244.45\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=candidate:2345027273 1 udp 2113937151 ac9da6bb-827a-411c-86ca-d23c32d7cd7b.local 51447 typ host generation 0 network-cost 999\r\na=candidate:38603138 1 udp 1677729535 128.138.244.45 51447 typ srflx raddr 0.0.0.0 rport 0 generation 0 network-cost 999\r\na=ice-ufrag:vkrs\r\na=ice-pwd:Qef2ksYbKJ80jL0RJX3MxEH/\r\na=ice-options:trickle\r\na=fingerprint:sha-256 31:CB:D0:C0:24:FD:85:20:92:22:C4:62:48:FA:47:CC:B0:FD:6A:AC:18:64:EC:AC:02:46:34:9D:75:DA:8B:F3\r\na=setup:active\r\na=mid:v\r\na=extmap:2 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time\r\na=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=recvonly\r\na=rtcp-mux\r\na=rtpmap:96 H264/90000\r\na=rtcp-fb:96 goog-remb\r\na=rtcp-fb:96 nack\r\na=rtcp-fb:96 nack pli\r\na=fmtp:96 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\r\na=rtpmap:97 rtx/90000\r\na=fmtp:97 apt=96\r\n"
+    },
+    {
+     "time": "2/19/2025, 8:00:00 PM",
+     "type": "signalingstatechange",
+     "value": "stable"
+    },
+    {
+     "time": "2/19/2025, 8:00:00 PM",
+     "type": "iceconnectionstatechange",
+     "value": "connected"
+    },
+    {
+     "time": "2/19/2025, 8:00:00 PM",
+     "type": "connectionstatechange",
+     "value": "connected"
+    }
+   ],
+   "url": "https://cloud.boosteroid.com/static/streaming/streaming.html?sessionId=b6e841f3-8360-482f-88ea-2257ce89b664"
+  },
+  "920-2": {
+   "pid": 1059196,
+   "rtcConfiguration": "{ iceServers: [stun:stun.l.google.com:19302, stun:stun2.l.google.com:19302], iceTransportPolicy: all, bundlePolicy: balanced, rtcpMuxPolicy: require, iceCandidatePoolSize: 0 }",
+   "stats": {
+    "AP-kind": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "media-playout",
+     "values": "[\"audio\",\"audio\",\"audio\",\"audio\"]"
+    },
+    "AP-synthesizedSamplesDuration": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "media-playout",
+     "values": "[0,0,0,0]"
+    },
+    "AP-synthesizedSamplesEvents": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "media-playout",
+     "values": "[0,0,0,0]"
+    },
+    "AP-totalSamplesDuration": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "media-playout",
+     "values": "[480.34,480.61,481.6,482.6]"
+    },
+    "AP-totalPlayoutDelay": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "media-playout",
+     "values": "[2642026.849749,2643518.939733,2648959.572168,2654461.873602]"
+    },
+    "AP-totalSamplesCount": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "media-playout",
+     "values": "[21182994,21194901,21238560,21282660]"
+    },
+    "AP-timestamp": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "media-playout",
+     "values": "[29609001.017,29609265.456,29610264.062,29611263.84]"
+    },
+    "CFED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3-fingerprint": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "certificate",
+     "values": "[\"ED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3\",\"ED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3\",\"ED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3\",\"ED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3\"]"
+    },
+    "CFED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3-fingerprintAlgorithm": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "certificate",
+     "values": "[\"sha-256\",\"sha-256\",\"sha-256\",\"sha-256\"]"
+    },
+    "CFED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3-base64Certificate": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "certificate",
+     "values": "[\"MIIBFzCBvaADAgECAgkA5mu9tFZqKw0wCgYIKoZIzj0EAwIwETEPMA0GA1UEAwwGV2ViUlRDMB4XDTI1MDIxOTAyNTIwMFoXDTI1MDMyMjAyNTIwMFowETEPMA0GA1UEAwwGV2ViUlRDMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAENjgaxGs0bPZqSviA2WYX5xj6c8gVS3WDNt9vO/ySIiXPoXlpDhbRRlYqZVecBPJypsJ2PMaoE7hBq5aVpKKQbTAKBggqhkjOPQQDAgNJADBGAiEAuhgcDR6AXIIi7uPCbT10DwTWqEtAzPED1Uz5C6ik3CcCIQDZyx4rjwKIDfCX+e3xQPiVulkNDa+zAdNNf3hYzUL8Lw==\",\"MIIBFzCBvaADAgECAgkA5mu9tFZqKw0wCgYIKoZIzj0EAwIwETEPMA0GA1UEAwwGV2ViUlRDMB4XDTI1MDIxOTAyNTIwMFoXDTI1MDMyMjAyNTIwMFowETEPMA0GA1UEAwwGV2ViUlRDMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAENjgaxGs0bPZqSviA2WYX5xj6c8gVS3WDNt9vO/ySIiXPoXlpDhbRRlYqZVecBPJypsJ2PMaoE7hBq5aVpKKQbTAKBggqhkjOPQQDAgNJADBGAiEAuhgcDR6AXIIi7uPCbT10DwTWqEtAzPED1Uz5C6ik3CcCIQDZyx4rjwKIDfCX+e3xQPiVulkNDa+zAdNNf3hYzUL8Lw==\",\"MIIBFzCBvaADAgECAgkA5mu9tFZqKw0wCgYIKoZIzj0EAwIwETEPMA0GA1UEAwwGV2ViUlRDMB4XDTI1MDIxOTAyNTIwMFoXDTI1MDMyMjAyNTIwMFowETEPMA0GA1UEAwwGV2ViUlRDMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAENjgaxGs0bPZqSviA2WYX5xj6c8gVS3WDNt9vO/ySIiXPoXlpDhbRRlYqZVecBPJypsJ2PMaoE7hBq5aVpKKQbTAKBggqhkjOPQQDAgNJADBGAiEAuhgcDR6AXIIi7uPCbT10DwTWqEtAzPED1Uz5C6ik3CcCIQDZyx4rjwKIDfCX+e3xQPiVulkNDa+zAdNNf3hYzUL8Lw==\",\"MIIBFzCBvaADAgECAgkA5mu9tFZqKw0wCgYIKoZIzj0EAwIwETEPMA0GA1UEAwwGV2ViUlRDMB4XDTI1MDIxOTAyNTIwMFoXDTI1MDMyMjAyNTIwMFowETEPMA0GA1UEAwwGV2ViUlRDMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAENjgaxGs0bPZqSviA2WYX5xj6c8gVS3WDNt9vO/ySIiXPoXlpDhbRRlYqZVecBPJypsJ2PMaoE7hBq5aVpKKQbTAKBggqhkjOPQQDAgNJADBGAiEAuhgcDR6AXIIi7uPCbT10DwTWqEtAzPED1Uz5C6ik3CcCIQDZyx4rjwKIDfCX+e3xQPiVulkNDa+zAdNNf3hYzUL8Lw==\"]"
+    },
+    "CFED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3-timestamp": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "certificate",
+     "values": "[29609001.017,29609265.456,29610264.062,29611263.84]"
+    },
+    "CITa1_97_minptime=10;stereo=1;useinbandfec=1-transportId": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "codec",
+     "values": "[\"Ta1\",\"Ta1\",\"Ta1\",\"Ta1\"]"
+    },
+    "CITa1_97_minptime=10;stereo=1;useinbandfec=1-payloadType": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "codec",
+     "values": "[97,97,97,97]"
+    },
+    "CITa1_97_minptime=10;stereo=1;useinbandfec=1-mimeType": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "codec",
+     "values": "[\"audio/opus\",\"audio/opus\",\"audio/opus\",\"audio/opus\"]"
+    },
+    "CITa1_97_minptime=10;stereo=1;useinbandfec=1-clockRate": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "codec",
+     "values": "[48000,48000,48000,48000]"
+    },
+    "CITa1_97_minptime=10;stereo=1;useinbandfec=1-channels": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "codec",
+     "values": "[2,2,2,2]"
+    },
+    "CITa1_97_minptime=10;stereo=1;useinbandfec=1-sdpFmtpLine": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "codec",
+     "values": "[\"minptime=10;stereo=1;useinbandfec=1\",\"minptime=10;stereo=1;useinbandfec=1\",\"minptime=10;stereo=1;useinbandfec=1\",\"minptime=10;stereo=1;useinbandfec=1\"]"
+    },
+    "CITa1_97_minptime=10;stereo=1;useinbandfec=1-timestamp": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "codec",
+     "values": "[29609001.017,29609265.456,29610264.062,29611263.84]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-transportId": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[\"Ta1\",\"Ta1\",\"Ta1\",\"Ta1\"]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-localCandidateId": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[\"IvMclzEC7\",\"IvMclzEC7\",\"IvMclzEC7\",\"IvMclzEC7\"]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-remoteCandidateId": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[\"I7XQoe/WZ\",\"I7XQoe/WZ\",\"I7XQoe/WZ\",\"I7XQoe/WZ\"]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-state": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[\"succeeded\",\"succeeded\",\"succeeded\",\"succeeded\"]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-priority": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[8655920682762255000,8655920682762255000,8655920682762255000,8655920682762255000]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-nominated": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[true,true,true,true]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-writable": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[true,true,true,true]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-packetsSent": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[104,104,105,105]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-[packetsSent/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0,0,1.0013959459512793,0]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-packetsReceived": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[24140,24154,24205,24256]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-[packetsReceived/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0,52.94226645869251,51.071193243515246,51.011324513978714]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-bytesSent": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[6216,6216,6268,6268]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-[bytesSent_in_bits/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0,0,416.5807135157322,0]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-bytesReceived": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[5996353,5997703,6002712,6007707]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-[bytesReceived_in_bits/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0,40841.17698241994,40127.938346159666,39968.873089776265]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-totalRoundTripTime": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[7.67,7.712,7.712,7.712]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-[totalRoundTripTime/responsesReceived]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0,0.041999999999999815,0,0]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-currentRoundTripTime": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0.041,0.042,0.042,0.042]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-availableOutgoingBitrate": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[300000,300000,300000,300000]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-requestsReceived": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[1,1,1,1]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-requestsSent": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[184,185,185,185]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-responsesReceived": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[184,185,185,185]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-responsesSent": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[1,1,1,1]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-consentRequestsSent": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[183,184,184,184]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-packetsDiscardedOnSend": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0,0,0,0]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-bytesDiscardedOnSend": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[0,0,0,0]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-lastPacketReceivedTimestamp": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[1740020400674,1740020400932,1740020401931,1740020402932]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-[lastPacketReceivedTimestamp]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[\"2/19/2025, 8:00:00 PM\",\"2/19/2025, 8:00:00 PM\",\"2/19/2025, 8:00:01 PM\",\"2/19/2025, 8:00:02 PM\"]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-lastPacketSentTimestamp": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[1740020396005,1740020396005,1740020401661,1740020401661]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-[lastPacketSentTimestamp]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[\"2/19/2025, 7:59:56 PM\",\"2/19/2025, 7:59:56 PM\",\"2/19/2025, 8:00:01 PM\",\"2/19/2025, 8:00:01 PM\"]"
+    },
+    "CPvMclzEC7_7XQoe/WZ-timestamp": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "candidate-pair",
+     "values": "[29609001.017,29609265.456,29610264.062,29611263.84]"
+    },
+    "I4vx7/LLh-transportId": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"Ta1\",\"Ta1\",\"Ta1\",\"Ta1\"]"
+    },
+    "I4vx7/LLh-isRemote": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[false,false,false,false]"
+    },
+    "I4vx7/LLh-networkType": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"unknown\",\"unknown\",\"unknown\",\"unknown\"]"
+    },
+    "I4vx7/LLh-ip": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"128.138.244.45\",\"128.138.244.45\",\"128.138.244.45\",\"128.138.244.45\"]"
+    },
+    "I4vx7/LLh-address": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"128.138.244.45\",\"128.138.244.45\",\"128.138.244.45\",\"128.138.244.45\"]"
+    },
+    "I4vx7/LLh-port": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[52337,52337,52337,52337]"
+    },
+    "I4vx7/LLh-protocol": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"udp\",\"udp\",\"udp\",\"udp\"]"
+    },
+    "I4vx7/LLh-candidateType": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"srflx\",\"srflx\",\"srflx\",\"srflx\"]"
+    },
+    "I4vx7/LLh-priority": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[1677729535,1677729535,1677729535,1677729535]"
+    },
+    "I4vx7/LLh-url": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"stun:stun.l.google.com:19302\",\"stun:stun.l.google.com:19302\",\"stun:stun.l.google.com:19302\",\"stun:stun.l.google.com:19302\"]"
+    },
+    "I4vx7/LLh-foundation": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[3532214186,3532214186,3532214186,3532214186]"
+    },
+    "I4vx7/LLh-usernameFragment": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"hAO9\",\"hAO9\",\"hAO9\",\"hAO9\"]"
+    },
+    "I4vx7/LLh-vpn": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[false,false,false,false]"
+    },
+    "I4vx7/LLh-networkAdapterType": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"any\",\"any\",\"any\",\"any\"]"
+    },
+    "I4vx7/LLh-timestamp": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[29609001.017,29609265.456,29610264.062,29611263.84]"
+    },
+    "I7XQoe/WZ-transportId": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[\"Ta1\",\"Ta1\",\"Ta1\",\"Ta1\"]"
+    },
+    "I7XQoe/WZ-isRemote": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[true,true,true,true]"
+    },
+    "I7XQoe/WZ-ip": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[\"149.100.135.4\",\"149.100.135.4\",\"149.100.135.4\",\"149.100.135.4\"]"
+    },
+    "I7XQoe/WZ-address": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[\"149.100.135.4\",\"149.100.135.4\",\"149.100.135.4\",\"149.100.135.4\"]"
+    },
+    "I7XQoe/WZ-port": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[24535,24535,24535,24535]"
+    },
+    "I7XQoe/WZ-protocol": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[\"udp\",\"udp\",\"udp\",\"udp\"]"
+    },
+    "I7XQoe/WZ-candidateType": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[\"host\",\"host\",\"host\",\"host\"]"
+    },
+    "I7XQoe/WZ-priority": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[2015363583,2015363583,2015363583,2015363583]"
+    },
+    "I7XQoe/WZ-foundation": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[1,1,1,1]"
+    },
+    "I7XQoe/WZ-usernameFragment": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[\"N00l\",\"N00l\",\"N00l\",\"N00l\"]"
+    },
+    "I7XQoe/WZ-timestamp": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "remote-candidate",
+     "values": "[29609001.017,29609265.456,29610264.062,29611263.84]"
+    },
+    "ITa1A492372928-ssrc": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[492372928,492372928,492372928,492372928]"
+    },
+    "ITa1A492372928-kind": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"audio\",\"audio\",\"audio\",\"audio\"]"
+    },
+    "ITa1A492372928-transportId": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"Ta1\",\"Ta1\",\"Ta1\",\"Ta1\"]"
+    },
+    "ITa1A492372928-codecId": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"CITa1_97_minptime=10;stereo=1;useinbandfec=1\",\"CITa1_97_minptime=10;stereo=1;useinbandfec=1\",\"CITa1_97_minptime=10;stereo=1;useinbandfec=1\",\"CITa1_97_minptime=10;stereo=1;useinbandfec=1\"]"
+    },
+    "ITa1A492372928-[codec]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"opus (97, minptime=10;stereo=1;useinbandfec=1)\",\"opus (97, minptime=10;stereo=1;useinbandfec=1)\",\"opus (97, minptime=10;stereo=1;useinbandfec=1)\",\"opus (97, minptime=10;stereo=1;useinbandfec=1)\"]"
+    },
+    "ITa1A492372928-jitter": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0.001,0,0,0]"
+    },
+    "ITa1A492372928-packetsLost": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-playoutId": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"AP\",\"AP\",\"AP\",\"AP\"]"
+    },
+    "ITa1A492372928-trackIdentifier": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"janusa0\",\"janusa0\",\"janusa0\",\"janusa0\"]"
+    },
+    "ITa1A492372928-mid": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"a\",\"a\",\"a\",\"a\"]"
+    },
+    "ITa1A492372928-remoteId": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"ROA492372928\",\"ROA492372928\",\"ROA492372928\",\"ROA492372928\"]"
+    },
+    "ITa1A492372928-packetsReceived": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[23665,23678,23728,23778]"
+    },
+    "ITa1A492372928-[packetsReceived/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,49.16067599735733,50.069797297563966,50.01110246468502]"
+    },
+    "ITa1A492372928-packetsDiscarded": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-[packetsDiscarded/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-fecPacketsReceived": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-[fecPacketsReceived/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-fecPacketsDiscarded": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-[fecPacketsDiscarded/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-bytesReceived": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[5113336,5114154,5117299,5120430]"
+    },
+    "ITa1A492372928-[bytesReceived_in_bits/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,24746.72797897741,25195.122000134186,25053.561890708606]"
+    },
+    "ITa1A492372928-headerBytesReceived": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[473300,473560,474560,475560]"
+    },
+    "ITa1A492372928-[headerBytesReceived_in_bits/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,7865.708159577172,8011.167567610235,8001.776394349602]"
+    },
+    "ITa1A492372928-lastPacketReceivedTimestamp": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[1740020400675.081,1740020400933.687,1740020401932.988,1740020402933.789]"
+    },
+    "ITa1A492372928-[lastPacketReceivedTimestamp]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[\"2/19/2025, 8:00:00 PM\",\"2/19/2025, 8:00:00 PM\",\"2/19/2025, 8:00:01 PM\",\"2/19/2025, 8:00:02 PM\"]"
+    },
+    "ITa1A492372928-jitterBufferDelay": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[980112,980572.8,982684.8,984710.4]"
+    },
+    "ITa1A492372928-[jitterBufferDelay/jitterBufferEmittedCount_in_ms]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,36.92307692308065,44,42.19999999999951]"
+    },
+    "ITa1A492372928-jitterBufferTargetDelay": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[909657.6,910156.8,912076.8,913996.8]"
+    },
+    "ITa1A492372928-[jitterBufferTargetDelay/jitterBufferEmittedCount_in_ms]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,40.00000000000559,40,40]"
+    },
+    "ITa1A492372928-jitterBufferMinimumDelay": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[909657.6,910156.8,912076.8,913996.8]"
+    },
+    "ITa1A492372928-[jitterBufferMinimumDelay/jitterBufferEmittedCount_in_ms]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,40.00000000000559,40,40]"
+    },
+    "ITa1A492372928-jitterBufferEmittedCount": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[22716480,22728960,22776960,22824960]"
+    },
+    "ITa1A492372928-totalSamplesReceived": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[22717920,22730880,22778400,22826400]"
+    },
+    "ITa1A492372928-[totalSamplesReceived/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,49009.41237890392,47586.335351604794,48010.65836609762]"
+    },
+    "ITa1A492372928-concealedSamples": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-[concealedSamples/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-[concealedSamples/totalSamplesReceived]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-silentConcealedSamples": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-[silentConcealedSamples/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-concealmentEvents": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-insertedSamplesForDeceleration": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[2292,2292,2292,2292]"
+    },
+    "ITa1A492372928-[insertedSamplesForDeceleration/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-removedSamplesForAcceleration": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-[removedSamplesForAcceleration/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-audioLevel": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0.00012207403790398877,0.00006103701895199438,0.00006103701895199438,0.00006103701895199438]"
+    },
+    "ITa1A492372928-totalAudioEnergy": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[14.238229471024633,14.238229472254062,14.23822947594236,14.238229480180172]"
+    },
+    "ITa1A492372928-[Audio_Level_in_RMS]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0.00006747918754719329,0.00006103730989548551,0.00006509847831706119]"
+    },
+    "ITa1A492372928-totalSamplesDuration": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[480.33999999970814,480.6099999997079,481.599999999707,482.5999999997061]"
+    },
+    "ITa1A492372928-totalProcessingDelay": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[868524.77472,868971.4272,870790.85952,872621.5536]"
+    },
+    "ITa1A492372928-[totalProcessingDelay/jitterBufferEmittedCount_in_ms]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,35.789461538465375,37.904840000000455,38.13945999999851]"
+    },
+    "ITa1A492372928-jitterBufferFlushes": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[1,1,1,1]"
+    },
+    "ITa1A492372928-delayedPacketOutageSamples": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-relativePacketArrivalDelay": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[379.67,379.99,380.78,381.65]"
+    },
+    "ITa1A492372928-interruptionCount": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-totalInterruptionDuration": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ITa1A492372928-timestamp": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "inbound-rtp",
+     "values": "[29609001.017,29609265.456,29610264.062,29611263.84]"
+    },
+    "IvMclzEC7-transportId": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"Ta1\",\"Ta1\",\"Ta1\",\"Ta1\"]"
+    },
+    "IvMclzEC7-isRemote": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[false,false,false,false]"
+    },
+    "IvMclzEC7-networkType": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"unknown\",\"unknown\",\"unknown\",\"unknown\"]"
+    },
+    "IvMclzEC7-ip": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"\",\"\",\"\",\"\"]"
+    },
+    "IvMclzEC7-address": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"\",\"\",\"\",\"\"]"
+    },
+    "IvMclzEC7-port": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[52337,52337,52337,52337]"
+    },
+    "IvMclzEC7-protocol": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"udp\",\"udp\",\"udp\",\"udp\"]"
+    },
+    "IvMclzEC7-candidateType": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"host\",\"host\",\"host\",\"host\"]"
+    },
+    "IvMclzEC7-priority": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[2113937151,2113937151,2113937151,2113937151]"
+    },
+    "IvMclzEC7-foundation": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[856579325,856579325,856579325,856579325]"
+    },
+    "IvMclzEC7-usernameFragment": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"hAO9\",\"hAO9\",\"hAO9\",\"hAO9\"]"
+    },
+    "IvMclzEC7-vpn": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[false,false,false,false]"
+    },
+    "IvMclzEC7-networkAdapterType": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[\"any\",\"any\",\"any\",\"any\"]"
+    },
+    "IvMclzEC7-timestamp": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "local-candidate",
+     "values": "[29609001.017,29609265.456,29610264.062,29611263.84]"
+    },
+    "P-dataChannelsOpened": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "peer-connection",
+     "values": "[0,0,0,0]"
+    },
+    "P-dataChannelsClosed": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "peer-connection",
+     "values": "[0,0,0,0]"
+    },
+    "P-timestamp": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "peer-connection",
+     "values": "[29609001.017,29609265.456,29610264.062,29611263.84]"
+    },
+    "ROA492372928-ssrc": {
+     "startTime": "1970-01-01T08:13:28.002Z",
+     "endTime": "1970-01-01T08:13:31.003Z",
+     "statsType": "remote-outbound-rtp",
+     "values": "[492372928,492372928,492372928,492372928]"
+    },
+    "ROA492372928-kind": {
+     "startTime": "1970-01-01T08:13:28.002Z",
+     "endTime": "1970-01-01T08:13:31.003Z",
+     "statsType": "remote-outbound-rtp",
+     "values": "[\"audio\",\"audio\",\"audio\",\"audio\"]"
+    },
+    "ROA492372928-transportId": {
+     "startTime": "1970-01-01T08:13:28.002Z",
+     "endTime": "1970-01-01T08:13:31.003Z",
+     "statsType": "remote-outbound-rtp",
+     "values": "[\"Ta1\",\"Ta1\",\"Ta1\",\"Ta1\"]"
+    },
+    "ROA492372928-codecId": {
+     "startTime": "1970-01-01T08:13:28.002Z",
+     "endTime": "1970-01-01T08:13:31.003Z",
+     "statsType": "remote-outbound-rtp",
+     "values": "[\"CITa1_97_minptime=10;stereo=1;useinbandfec=1\",\"CITa1_97_minptime=10;stereo=1;useinbandfec=1\",\"CITa1_97_minptime=10;stereo=1;useinbandfec=1\",\"CITa1_97_minptime=10;stereo=1;useinbandfec=1\"]"
+    },
+    "ROA492372928-packetsSent": {
+     "startTime": "1970-01-01T08:13:28.002Z",
+     "endTime": "1970-01-01T08:13:31.003Z",
+     "statsType": "remote-outbound-rtp",
+     "values": "[23615,23665,23715,23765]"
+    },
+    "ROA492372928-bytesSent": {
+     "startTime": "1970-01-01T08:13:28.002Z",
+     "endTime": "1970-01-01T08:13:31.003Z",
+     "statsType": "remote-outbound-rtp",
+     "values": "[5582505,5586636,5590788,5594914]"
+    },
+    "ROA492372928-localId": {
+     "startTime": "1970-01-01T08:13:28.002Z",
+     "endTime": "1970-01-01T08:13:31.003Z",
+     "statsType": "remote-outbound-rtp",
+     "values": "[\"ITa1A492372928\",\"ITa1A492372928\",\"ITa1A492372928\",\"ITa1A492372928\"]"
+    },
+    "ROA492372928-remoteTimestamp": {
+     "startTime": "1970-01-01T08:13:28.002Z",
+     "endTime": "1970-01-01T08:13:31.003Z",
+     "statsType": "remote-outbound-rtp",
+     "values": "[1740020399656,1740020400656,1740020401656,1740020402656]"
+    },
+    "ROA492372928-[remoteTimestamp]": {
+     "startTime": "1970-01-01T08:13:28.002Z",
+     "endTime": "1970-01-01T08:13:31.003Z",
+     "statsType": "remote-outbound-rtp",
+     "values": "[\"2/19/2025, 7:59:59 PM\",\"2/19/2025, 8:00:00 PM\",\"2/19/2025, 8:00:01 PM\",\"2/19/2025, 8:00:02 PM\"]"
+    },
+    "ROA492372928-reportsSent": {
+     "startTime": "1970-01-01T08:13:28.002Z",
+     "endTime": "1970-01-01T08:13:31.003Z",
+     "statsType": "remote-outbound-rtp",
+     "values": "[473,474,475,476]"
+    },
+    "ROA492372928-roundTripTimeMeasurements": {
+     "startTime": "1970-01-01T08:13:28.002Z",
+     "endTime": "1970-01-01T08:13:31.003Z",
+     "statsType": "remote-outbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ROA492372928-totalRoundTripTime": {
+     "startTime": "1970-01-01T08:13:28.002Z",
+     "endTime": "1970-01-01T08:13:31.003Z",
+     "statsType": "remote-outbound-rtp",
+     "values": "[0,0,0,0]"
+    },
+    "ROA492372928-timestamp": {
+     "startTime": "1970-01-01T08:13:28.002Z",
+     "endTime": "1970-01-01T08:13:31.003Z",
+     "statsType": "remote-outbound-rtp",
+     "values": "[29608002,29609003,29610003,29611003]"
+    },
+    "Ta1-bytesSent": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[6216,6216,6268,6268]"
+    },
+    "Ta1-[bytesSent_in_bits/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[0,0,416.5807135157322,0]"
+    },
+    "Ta1-packetsSent": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[104,104,105,105]"
+    },
+    "Ta1-[packetsSent/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[0,0,1.0013959459512793,0]"
+    },
+    "Ta1-bytesReceived": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[5996353,5997703,6002712,6007707]"
+    },
+    "Ta1-[bytesReceived_in_bits/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[0,40841.17698241994,40127.938346159666,39968.873089776265]"
+    },
+    "Ta1-packetsReceived": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[24140,24154,24205,24256]"
+    },
+    "Ta1-[packetsReceived/s]": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[0,52.94226645869251,51.071193243515246,51.011324513978714]"
+    },
+    "Ta1-dtlsState": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"connected\",\"connected\",\"connected\",\"connected\"]"
+    },
+    "Ta1-selectedCandidatePairId": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"CPvMclzEC7_7XQoe/WZ\",\"CPvMclzEC7_7XQoe/WZ\",\"CPvMclzEC7_7XQoe/WZ\",\"CPvMclzEC7_7XQoe/WZ\"]"
+    },
+    "Ta1-localCertificateId": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"CFED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3\",\"CFED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3\",\"CFED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3\",\"CFED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3\"]"
+    },
+    "Ta1-tlsVersion": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"FEFD\",\"FEFD\",\"FEFD\",\"FEFD\"]"
+    },
+    "Ta1-dtlsCipher": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\",\"TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\",\"TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\",\"TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256\"]"
+    },
+    "Ta1-dtlsRole": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"client\",\"client\",\"client\",\"client\"]"
+    },
+    "Ta1-srtpCipher": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"AEAD_AES_256_GCM\",\"AEAD_AES_256_GCM\",\"AEAD_AES_256_GCM\",\"AEAD_AES_256_GCM\"]"
+    },
+    "Ta1-selectedCandidatePairChanges": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[1,1,1,1]"
+    },
+    "Ta1-iceRole": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"controlled\",\"controlled\",\"controlled\",\"controlled\"]"
+    },
+    "Ta1-iceLocalUsernameFragment": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"hAO9\",\"hAO9\",\"hAO9\",\"hAO9\"]"
+    },
+    "Ta1-iceState": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[\"connected\",\"connected\",\"connected\",\"connected\"]"
+    },
+    "Ta1-timestamp": {
+     "startTime": "1970-01-01T08:13:29.001Z",
+     "endTime": "1970-01-01T08:13:31.263Z",
+     "statsType": "transport",
+     "values": "[29609001.017,29609265.456,29610264.062,29611263.84]"
+    }
+   },
+   "updateLog": [
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "setRemoteDescription",
+     "value": "type: offer, sdp: v=0\r\no=- 1740019920327845 1 IN IP4 149.100.135.4\r\ns=Mountpoint 693631197532719\r\nt=0 0\r\na=group:BUNDLE a\r\na=extmap-allow-mixed\r\na=msid-semantic: WMS janus\r\nm=audio 9 UDP/TLS/RTP/SAVPF 97\r\nc=IN IP4 149.100.135.4\r\na=sendonly\r\na=mid:a\r\na=rtcp-mux\r\na=ice-ufrag:N00l\r\na=ice-pwd:5nkPqbtcfnJfARd1EGqfZd\r\na=ice-options:trickle\r\na=fingerprint:sha-256 78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A\r\na=setup:actpass\r\na=rtpmap:97 opus/48000/2\r\na=fmtp:97 stereo=1;sprop-stereo=1\r\na=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=msid:janus janusa0\r\na=ssrc:492372928 cname:janus\r\na=ssrc:492372928 msid:janus janusa0\r\na=ssrc:492372928 mslabel:janus\r\na=ssrc:492372928 label:janusa0\r\na=candidate:1 1 udp 2015363583 149.100.135.4 24535 typ host\r\na=end-of-candidates\r\n"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "setRemoteDescriptionOnSuccess",
+     "value": ""
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "signalingstatechange",
+     "value": "have-remote-offer"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "transceiverAdded",
+     "value": "Caused by: setRemoteDescription\n\ngetTransceivers()[0]:{\n  mid:'a',\n  kind:'audio',\n  sender:{\n    track:null,\n    streams:[],\n  },\n  receiver:{\n    track:'janusa0',\n    streams:['janus'],\n  },\n  direction:'recvonly',\n  currentDirection:null,\n}"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "transceiverAdded",
+     "value": "Caused by: addTransceiver\n\ngetTransceivers()[1]:{\n  mid:null,\n  kind:'video',\n  sender:{\n    track:null,\n    streams:[],\n    encodings: [\n      {active: true, },\n    ],\n  },\n  receiver:{\n    track:'1a55eea7-a051-4a93-9ce7-75bddc2b990b',\n    streams:[],\n  },\n  direction:'recvonly',\n  currentDirection:null,\n}"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "createAnswer",
+     "value": "options: {, voiceActivityDetection: true}"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "createAnswerOnSuccess",
+     "value": "type: answer, sdp: v=0\r\no=- 8294406462068050266 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=group:BUNDLE a\r\na=extmap-allow-mixed\r\na=msid-semantic: WMS\r\nm=audio 9 UDP/TLS/RTP/SAVPF 97\r\nc=IN IP4 0.0.0.0\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=ice-ufrag:hAO9\r\na=ice-pwd:elL6T3wXCf331b2oew8tqRg9\r\na=ice-options:trickle\r\na=fingerprint:sha-256 ED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3\r\na=setup:active\r\na=mid:a\r\na=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=recvonly\r\na=rtcp-mux\r\na=rtpmap:97 opus/48000/2\r\na=fmtp:97 minptime=10;useinbandfec=1\r\n"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "setLocalDescription",
+     "value": "type: answer, sdp: v=0\r\no=- 8294406462068050266 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=group:BUNDLE a\r\na=extmap-allow-mixed\r\na=msid-semantic: WMS\r\nm=audio 9 UDP/TLS/RTP/SAVPF 97\r\nc=IN IP4 0.0.0.0\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=ice-ufrag:hAO9\r\na=ice-pwd:elL6T3wXCf331b2oew8tqRg9\r\na=ice-options:trickle\r\na=fingerprint:sha-256 ED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3\r\na=setup:active\r\na=mid:a\r\na=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=recvonly\r\na=rtcp-mux\r\na=rtpmap:97 opus/48000/2\r\na=fmtp:97 minptime=10;useinbandfec=1;stereo=1\r\n"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "setLocalDescriptionOnSuccess",
+     "value": ""
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "signalingstatechange",
+     "value": "stable"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "transceiverModified",
+     "value": "Caused by: setLocalDescription\n\ngetTransceivers()[0]:{\n  mid:'a',\n  kind:'audio',\n  sender:{\n    track:null,\n    streams:[],\n  },\n  receiver:{\n    track:'janusa0',\n    streams:['janus'],\n  },\n  direction:'recvonly',\n  currentDirection:'recvonly',\n}"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "negotiationneeded",
+     "value": ""
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "icegatheringstatechange",
+     "value": "gathering"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "iceconnectionstatechange",
+     "value": "checking"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "connectionstatechange",
+     "value": "connecting"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "icecandidate",
+     "value": "sdpMid: a, sdpMLineIndex: 0, candidate: candidate:856579325 1 udp 2113937151 ac9da6bb-827a-411c-86ca-d23c32d7cd7b.local 52337 typ host generation 0 ufrag hAO9 network-cost 999"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "icecandidate",
+     "value": "sdpMid: a, sdpMLineIndex: 0, candidate: candidate:3532214186 1 udp 1677729535 128.138.244.45 52337 typ srflx raddr 0.0.0.0 rport 0 generation 0 ufrag hAO9 network-cost 999, url: stun:stun.l.google.com:19302"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "iceconnectionstatechange",
+     "value": "connected"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "icegatheringstatechange",
+     "value": "complete"
+    },
+    {
+     "time": "2/19/2025, 7:52:00 PM",
+     "type": "connectionstatechange",
+     "value": "connected"
+    },
+    {
+     "time": "2/19/2025, 7:52:40 PM",
+     "type": "icecandidateerror",
+     "value": "url: stun:stun.l.google.com:19302\naddress: [0:0:0:x:x:x:x:x]\nport: 58739\nhost_candidate: [0:0:0:x:x:x:x:x]:58739\nerror_text: STUN binding request timed out.\nerror_code: 701"
+    },
+    {
+     "time": "2/19/2025, 8:00:00 PM",
+     "type": "setRemoteDescription",
+     "value": "type: offer, sdp: v=0\r\no=- 1740019920327845 1 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=group:BUNDLE a\r\na=extmap-allow-mixed\r\na=msid-semantic: WMS janus\r\nm=audio 24535 UDP/TLS/RTP/SAVPF 97\r\nc=IN IP4 149.100.135.4\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=candidate:1 1 udp 2015363583 149.100.135.4 24535 typ host generation 0\r\na=ice-ufrag:N00l\r\na=ice-pwd:5nkPqbtcfnJfARd1EGqfZd\r\na=ice-options:trickle\r\na=fingerprint:sha-256 78:55:B2:CE:13:92:6B:01:56:46:13:CE:D2:AA:4E:16:ED:98:E6:1E:88:DF:BC:0A:0C:E8:E5:F0:6C:EB:F3:7A\r\na=setup:actpass\r\na=mid:a\r\na=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=sendonly\r\na=msid:janus janusa0\r\na=rtcp-mux\r\na=rtpmap:97 opus/48000/2\r\na=fmtp:97 sprop-stereo=1;stereo=1\r\na=ssrc:492372928 cname:janus\r\na=ssrc:492372928 msid:janus janusa0\r\n"
+    },
+    {
+     "time": "2/19/2025, 8:00:00 PM",
+     "type": "setLocalDescription",
+     "value": "type: answer, sdp: v=0\r\no=- 8294406462068050266 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=group:BUNDLE a\r\na=extmap-allow-mixed\r\na=msid-semantic: WMS\r\nm=audio 52337 UDP/TLS/RTP/SAVPF 97\r\nc=IN IP4 128.138.244.45\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=candidate:856579325 1 udp 2113937151 ac9da6bb-827a-411c-86ca-d23c32d7cd7b.local 52337 typ host generation 0 network-cost 999\r\na=candidate:3532214186 1 udp 1677729535 128.138.244.45 52337 typ srflx raddr 0.0.0.0 rport 0 generation 0 network-cost 999\r\na=ice-ufrag:hAO9\r\na=ice-pwd:elL6T3wXCf331b2oew8tqRg9\r\na=ice-options:trickle\r\na=fingerprint:sha-256 ED:E8:F7:71:8C:3E:83:F5:3B:3B:13:83:37:D1:82:CE:96:40:DB:C1:F2:31:DA:54:B2:BA:5C:D2:86:4B:B0:B3\r\na=setup:active\r\na=mid:a\r\na=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=recvonly\r\na=rtcp-mux\r\na=rtpmap:97 opus/48000/2\r\na=fmtp:97 minptime=10;stereo=1;useinbandfec=1\r\n"
+    },
+    {
+     "time": "2/19/2025, 8:00:00 PM",
+     "type": "signalingstatechange",
+     "value": "stable"
+    },
+    {
+     "time": "2/19/2025, 8:00:00 PM",
+     "type": "iceconnectionstatechange",
+     "value": "connected"
+    },
+    {
+     "time": "2/19/2025, 8:00:00 PM",
+     "type": "connectionstatechange",
+     "value": "connected"
+    }
+   ],
+   "url": "https://cloud.boosteroid.com/static/streaming/streaming.html?sessionId=b6e841f3-8360-482f-88ea-2257ce89b664"
+  }
+ },
+ "UserAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+}

@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import kotlinx.coroutines.*
-import java.io.BufferedReader
-import java.io.BufferedWriter
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ClosedSendChannelException
 import java.io.File
 import java.io.FileWriter
 import java.net.DatagramPacket
@@ -21,29 +21,69 @@ class TcpUdpTester {
         private const val TAG = "TcpUdpTester"
     }
 
-    private var controlSocket: Socket? = null
-    private var controlWriter: BufferedWriter? = null
-    private var controlReader: BufferedReader? = null
-
-    private val _throughput = mutableStateOf("0.0")
-    val throughput: String get() = _throughput.value
-
-    private val _isTestRunning = mutableStateOf(false)
-    val isTestRunning: Boolean get() = _isTestRunning.value
-
-    // Local logs
-    private var logFolderPath: String? = null
-    private val csvLogBuffer = mutableListOf<String>()
-
-    // For measuring throughput in collectorThread
-    @Volatile private var bytesReceived: Long = 0
-    private val bytesLock = Object()
+    // Existing members...
+    private var udpSocket: DatagramSocket? = null
+    private var receivingJob: Job? = null
 
     private var collectorThread: Thread? = null
     @Volatile private var collectorThreadRunning = false
 
     private var averagingThread: Thread? = null
     @Volatile private var averagingThreadRunning = false
+
+    private val _throughput = mutableStateOf("0.0")
+    val throughput: String get() = _throughput.value
+
+    private val throughputSamples = mutableListOf<Double>()
+    // We'll still keep the buffer for local file logging if needed.
+    private val csvLogBuffer = mutableListOf<String>()
+
+    // New buffer for batching logs to send over the network.
+    private val networkLogBuffer = mutableListOf<String>()
+
+    @Volatile private var bytesReceived: Long = 0
+    private var logFolderPath: String? = null
+
+    // Channel for sequential log sending.
+    private var logChannel = Channel<String>(Channel.UNLIMITED)
+    private var logSenderJob: Job? = null
+
+    // New job for batching logs every 1 second.
+    private var logBatcherJob: Job? = null
+
+    // Starts a dedicated sender that posts each CSV batch immediately.
+    private fun startLogSender(serverIp: String, controlPort: Int) {
+        val url = "http://$serverIp:$controlPort/csv_logs"
+        logSenderJob = GlobalScope.launch(Dispatchers.IO) {
+            for (csvData in logChannel) {
+                // This suspend call waits until the POST completes before processing the next batch.
+                HttpControlClient.post(url, csvData)
+            }
+        }
+    }
+
+    // New function: every 1 second, flush accumulated logs and send as a single batch.
+    private fun startLogBatcher() {
+        logBatcherJob = GlobalScope.launch(Dispatchers.IO) {
+            while (isActive) {
+                delay(1000)  // Batch every 1 second.
+                val batch: List<String> = synchronized(networkLogBuffer) {
+                    val copy = networkLogBuffer.toList()
+                    networkLogBuffer.clear()
+                    copy
+                }
+                if (batch.isNotEmpty()) {
+                    // Combine the batched logs into a single newline-separated string.
+                    val batchedCsv = batch.joinToString("\n")
+                    try {
+                        logChannel.send(batchedCsv)
+                    } catch (e: ClosedSendChannelException) {
+                        break
+                    }
+                }
+            }
+        }
+    }
 
     fun startTest(
         context: Context,
@@ -53,67 +93,125 @@ class TcpUdpTester {
         dataPort: Int,
         desiredRate: String
     ) {
-        _isTestRunning.value = true
 
+        logChannel = Channel(Channel.UNLIMITED)
         // Create local log folder
         val timestamp = SimpleDateFormat("yy-MM-dd-HH-mm-ss", Locale.getDefault()).format(Date())
         logFolderPath = File(context.getExternalFilesDir(null), "tcp_test/$timestamp").absolutePath
-        File(logFolderPath!!).mkdirs()
         Log.d(TAG, "Log folder: $logFolderPath")
 
-        // 1) Open a single persistent socket for control & logging
-        try {
-            controlSocket = Socket(serverIp, controlPort)
-            controlWriter = controlSocket?.getOutputStream()?.bufferedWriter(Charsets.UTF_8)
-            controlReader = controlSocket?.getInputStream()?.bufferedReader(Charsets.UTF_8)
-            Log.d(TAG, "Opened persistent socket to $serverIp:$controlPort")
-        } catch (e: Exception) {
-            Log.e(TAG, "Error opening control socket", e)
-            _isTestRunning.value = false
-            return
-        }
+        val serverBase = "http://$serverIp:$controlPort"
 
-        // 2) Send a command to start either TCP or UDP on the server
-        GlobalScope.launch(Dispatchers.IO) {
-            if (mode == "TCP") {
-                sendCommand("START_TCP $desiredRate")
-                // Start a TCP receiver if needed:
-                runTcpReceiver(serverIp, dataPort)
-            } else {
-                sendCommand("START_UDP $desiredRate")
-                // Start a UDP receiver if needed:
-                runUdpReceiver(serverIp, dataPort)
+        // Start either TCP or UDP data-plane
+        if (mode == "TCP") {
+            GlobalScope.launch(Dispatchers.IO) {
+                HttpControlClient.get("$serverBase/start_tcp?rate=$desiredRate")
+            }
+            if (receivingJob?.isActive != true) {
+                receivingJob = GlobalScope.launch(Dispatchers.IO) {
+                    runTcpReceiver(serverIp, dataPort)
+                }
+            }
+        } else {
+            val udpContext = newSingleThreadContext("UdpReceiver")
+            GlobalScope.launch(udpContext) {
+                if (udpSocket == null) {
+                    udpSocket = DatagramSocket(null).apply {
+                        reuseAddress = true
+                        try {
+                            receiveBufferSize = 2 * 1024 * 1024
+                        } catch (_: Exception) {}
+                        bind(InetSocketAddress(0))
+                        Log.d(TAG, "UDP: Created socket on port $localPort")
+                    }
+                }
+                if (receivingJob?.isActive != true) {
+                    receivingJob = GlobalScope.launch(udpContext) {
+                        udpSocket?.let { runUdpReceiver(it) }
+                            ?: Log.e(TAG, "UDP: Socket not available")
+                    }
+                }
+                delay(100)
+                try {
+                    udpSocket?.let { sock ->
+                        val buf = "hello".toByteArray()
+                        val packet = DatagramPacket(buf, buf.size, InetSocketAddress(serverIp, dataPort))
+                        sock.send(packet)
+                        Log.d(TAG, "UDP: Sent handshake to $serverIp:$dataPort from port ${sock.localPort}")
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error sending initial UDP handshake", e)
+                }
+            }
+            GlobalScope.launch(Dispatchers.IO) {
+                Log.d(TAG, "Start UDP with $desiredRate")
+                HttpControlClient.get("$serverBase/start_udp?rate=$desiredRate")
             }
         }
 
-        // 3) Start local collector & averaging threads
+        // Kick off threads and the log sender.
         startCollectorThread()
-        startAveragingThread()
+        startAveragingThread()  // now used only for UI updates
+        startLogSender(serverIp, controlPort)
+        startLogBatcher() // start batching logs every 1 second
     }
 
-    private fun sendCommand(command: String) {
-        try {
-            controlWriter?.write(command + "\n")
-            controlWriter?.flush()
-            Log.d(TAG, "Sent command: $command")
-        } catch (e: Exception) {
-            Log.e(TAG, "Error sending command $command", e)
+    fun stopTest(mode: String, serverIp: String, controlPort: String) {
+        // Stop background tasks
+        collectorThreadRunning = false
+        averagingThreadRunning = false
+
+        // Cancel the log sender and batcher and close the channel.
+        logSenderJob?.cancel()
+        logBatcherJob?.cancel()
+        logChannel.close()
+
+        val serverBase = "http://$serverIp:$controlPort"
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                when (mode) {
+                    "TCP" -> HttpControlClient.get("$serverBase/stop_tcp")
+                    "UDP" -> {
+                        HttpControlClient.get("$serverBase/stop_udp")
+                        receivingJob?.join() // Wait until receiver finishes
+                        udpSocket?.close()
+                        udpSocket = null
+                        Log.d(TAG, "UDP socket closed")
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error stopping test on server", e)
+            }
         }
+
+        try {
+            receivingJob?.cancel()
+            collectorThread?.interrupt()
+            averagingThread?.interrupt()
+
+            collectorThread?.join(1000)
+            averagingThread?.join(1000)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error stopping threads", e)
+        } finally {
+            receivingJob = null
+            collectorThread = null
+            averagingThread = null
+            _throughput.value = "0.0"
+        }
+        Log.d(TAG, "Test stopped")
     }
 
     private suspend fun runTcpReceiver(serverIp: String, dataPort: Int) {
-        // Connect to server for data-plane
         try {
-            val dataSocket = Socket(serverIp, dataPort)
-            dataSocket.use { sock ->
-                val input = sock.getInputStream()
+            Socket(serverIp, dataPort).use { socket ->
+                Log.d(TAG, "TCP connected to $serverIp:$dataPort")
+                val input = socket.getInputStream()
                 val buffer = ByteArray(32 * 1024)
-                while (_isTestRunning.value) {
+                while (true) {
                     val bytesRead = input.read(buffer)
-                    if (bytesRead <= 0) break
-                    synchronized(bytesLock) {
-                        bytesReceived += bytesRead
-                    }
+                    if (bytesRead == -1) break
+                    bytesReceived += bytesRead
                 }
             }
         } catch (e: Exception) {
@@ -121,72 +219,74 @@ class TcpUdpTester {
         }
     }
 
-    private suspend fun runUdpReceiver(serverIp: String, dataPort: Int) {
-        val socket = DatagramSocket()
-        // Send a small “hello” so Python’s phone_addr = addr
-        val helloData = "hello".toByteArray()
-        val serverAddress = InetSocketAddress(serverIp, dataPort)
-        socket.send(DatagramPacket(helloData, helloData.size, serverAddress))
-
-        // Now read data in a loop
-        val buffer = ByteArray(32 * 1024)
+    private suspend fun runUdpReceiver(sock: DatagramSocket) = withContext(Dispatchers.IO) {
+        sock.soTimeout = 100
+        val buffer = ByteArray(2048)
         val packet = DatagramPacket(buffer, buffer.size)
-        while (_isTestRunning.value) {
-            try {
-                socket.receive(packet)
-                val bytesRead = packet.length
-                synchronized(bytesLock) {
-                    bytesReceived += bytesRead
+        try {
+            Log.d(TAG, "UDP: Receiver started on port ${sock.localPort}")
+            while (isActive) {
+                try {
+                    sock.receive(packet)
+                    bytesReceived += packet.length
+                } catch (_: Exception) {
+                    // Timeout – keep looping
                 }
-            } catch (ex: Exception) {
-                Log.e(TAG, "UDP receiver error", ex)
-                break
             }
+        } catch (e: Exception) {
+            Log.e(TAG, "UDP receiver error", e)
         }
-        socket.close()
     }
-
 
     private fun startCollectorThread() {
         if (collectorThreadRunning) return
         collectorThreadRunning = true
 
-        collectorThread = thread(start = true, name = "CollectorThread") {
-            val intervalNs = 10_000_000L // ~10 ms
+        collectorThread = thread(start = true, name = "ThroughputCollector") {
+            val intervalNanos = 10_000_000L // 10ms
             var nextTick = System.nanoTime()
             var lastTimeNs = nextTick
 
-            while (collectorThreadRunning) {
+            while (collectorThreadRunning && !Thread.currentThread().isInterrupted) {
                 val nowNs = System.nanoTime()
                 val elapsedNs = nowNs - lastTimeNs
                 lastTimeNs = nowNs
 
-                val snapshot: Long
-                synchronized(bytesLock) {
-                    snapshot = bytesReceived
-                    bytesReceived = 0
-                }
+                val snapshot = bytesReceived
+                bytesReceived = 0
+
                 val elapsedSec = elapsedNs / 1_000_000_000.0
                 val bits = snapshot * 8.0
                 val mbps = (bits / 1_000_000.0) / elapsedSec
 
-                val now = System.currentTimeMillis()
-                val dateStr = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault()).format(Date(now))
-                val csvLine = "$dateStr,$now,%.3f".format(Locale.US, mbps)
+                synchronized(throughputSamples) {
+                    throughputSamples.add(mbps)
+                }
 
-                // Locally append to CSV buffer
+                // Create CSV log line.
+                val dateNow = Date()
+                val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault())
+                val formattedTime = sdf.format(dateNow)
+                val epoch = System.currentTimeMillis()
+                val csvLine = "$formattedTime,$epoch,%.3f".format(Locale.US, mbps)
+
+                // Append locally.
                 synchronized(csvLogBuffer) {
                     csvLogBuffer.add(csvLine)
                 }
-                // Also append to local file
                 appendCsvLogToFile(csvLine)
 
-                nextTick += intervalNs
+                // Instead of sending immediately, add to the network log buffer.
+                synchronized(networkLogBuffer) {
+                    networkLogBuffer.add(csvLine)
+                }
+
+                nextTick += intervalNanos
                 val remaining = nextTick - System.nanoTime()
                 if (remaining > 0) {
                     try {
                         Thread.sleep(remaining / 1_000_000, (remaining % 1_000_000).toInt())
-                    } catch (ie: InterruptedException) {
+                    } catch (e: InterruptedException) {
                         break
                     }
                 }
@@ -194,97 +294,51 @@ class TcpUdpTester {
         }
     }
 
+    // Now the averaging thread is only updating the throughput UI.
     private fun startAveragingThread() {
         if (averagingThreadRunning) return
         averagingThreadRunning = true
 
         averagingThread = thread(start = true, name = "AveragingThread") {
-            while (averagingThreadRunning) {
-                // Gather all CSV lines up to now
-                val chunk: String = synchronized(csvLogBuffer) {
-                    if (csvLogBuffer.isEmpty()) return@synchronized ""
-                    val lines = csvLogBuffer.joinToString("\n")
-                    csvLogBuffer.clear()
-                    lines
+            try {
+                while (averagingThreadRunning && !Thread.currentThread().isInterrupted) {
+                    val avgMbps = synchronized(throughputSamples) {
+                        if (throughputSamples.isNotEmpty()) throughputSamples.average() else 0.0
+                    }
+                    _throughput.value = String.format(Locale.US, "%.3f", avgMbps)
+                    synchronized(throughputSamples) {
+                        throughputSamples.clear()
+                    }
+                    Thread.sleep(1000) // Update every second.
                 }
-                if (chunk.isNotEmpty()) {
-                    // Send lines as a CSV_LOGS batch
-                    // We can use a simple incremental batch ID if we like
-                    sendCsvLogs(chunk)
-                }
-
-                // Just for display, you might compute average from the last chunk
-                // or do something else ...
-                // Update _throughput if you want an immediate average here
-
-                try {
-                    Thread.sleep(1000)
-                } catch (ie: InterruptedException) {
-                    break
-                }
+            } catch (e: InterruptedException) {
+                Thread.currentThread().interrupt()
+            } catch (e: Exception) {
+                Log.e(TAG, "Averaging thread error", e)
+            } finally {
+                Log.d(TAG, "Averaging thread stopped")
             }
-        }
-    }
-
-    private fun sendCsvLogs(csvData: String) {
-        // Use the same persistent socket
-        // We'll define batchId = System.currentTimeMillis() or an increment
-        val batchId = System.currentTimeMillis()
-        try {
-            controlWriter?.write("CSV_LOGS $batchId\n")
-            controlWriter?.write(csvData)
-            controlWriter?.write("\n\n") // blank line to signal end
-            controlWriter?.flush()
-
-            Log.d(TAG, "Sent CSV logs (batchId=$batchId) with lines:\n$csvData")
-        } catch (e: Exception) {
-            Log.e(TAG, "Error sending CSV logs", e)
         }
     }
 
     private fun appendCsvLogToFile(logLine: String) {
         try {
             val folder = logFolderPath ?: return
-            val file = File(folder, "logs.csv")
+            val dirFile = File(folder)
+            if (!dirFile.exists()) {
+                dirFile.mkdirs()
+            }
+            val file = File(dirFile, "logs.csv")
+            if (!file.exists()) {
+                FileWriter(file).use { fw ->
+                    fw.write("timestamp,epoch_ms,throughput_mbps\n")
+                }
+            }
             FileWriter(file, true).use { fw ->
                 fw.appendLine(logLine)
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Error appending to local CSV file", e)
+            Log.e(TAG, "Error appending CSV log", e)
         }
-    }
-
-    fun stopTest(mode: String) {
-        _isTestRunning.value = false
-
-        // 1) Send STOP commands if you wish
-        GlobalScope.launch(Dispatchers.IO) {
-            sendCommand("STOP_TCP")
-            sendCommand("STOP_UDP")
-        }
-
-        // 2) Stop threads
-        collectorThreadRunning = false
-        collectorThread?.interrupt()
-        collectorThread = null
-
-        averagingThreadRunning = false
-        averagingThread?.interrupt()
-        averagingThread = null
-
-        // 3) Close the persistent socket
-        try {
-            controlWriter?.close()
-            controlReader?.close()
-            controlSocket?.close()
-        } catch (e: Exception) {
-            Log.e(TAG, "Error closing control socket", e)
-        } finally {
-            controlWriter = null
-            controlReader = null
-            controlSocket = null
-        }
-
-        Log.d(TAG, "Test stopped")
     }
 }
