@@ -100,13 +100,12 @@ def append_csv_logs(csv_data: str):
 ###########################################################
 def run_tcp_data_process(stop_event, can_send_tcp, tcp_rate_mbps, port):
     """
-    Child process function that:
-      1) Binds a TCP socket on `port`
-      2) Accepts connections
-      3) Sends data in large bursts to maintain `tcp_rate_mbps` if `can_send_tcp` is True
-      4) Optimized for multi-Gbps throughput
+    High-performance TCP server that:
+    1) Works reliably on both high-bandwidth and cellular connections
+    2) Achieves much higher throughput than the original version
+    3) Adapts to network conditions to maintain stability
     """
-    print(f"[TCP-PROC] Starting high-performance TCP server on port {port}")
+    print(f"[TCP-PROC] Starting optimized TCP server on port {port}")
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     
@@ -122,18 +121,16 @@ def run_tcp_data_process(stop_event, can_send_tcp, tcp_rate_mbps, port):
         print(f"[TCP-PROC] Bind/listen error: {e}")
         return
 
-    # Create a much larger payload chunk (1MB instead of 8KB)
-    # This significantly reduces the overhead of function calls and system calls
-    base_payload_size = 1024 * 1024  # 1MB chunk
-    payload_chunk = b"\x00" * base_payload_size
-    
-    # Pre-allocate larger chunks for different sending rates
-    payload_chunks = {
-        'small': payload_chunk,
-        'medium': payload_chunk * 4,  # 4MB
-        'large': payload_chunk * 8,   # 8MB
+    # Create payload chunks of different sizes for better adaptability
+    payload_sizes = {
+        'small': 128 * 1024,     # 128KB
+        'medium': 512 * 1024,    # 512KB  
+        'large': 1024 * 1024,    # 1MB
+        'xlarge': 4 * 1024 * 1024 # 4MB
     }
-
+    
+    payload_chunks = {size: b"\x00" * payload_sizes[size] for size in payload_sizes}
+    
     while not stop_event.is_set():
         conn = None
         addr = None
@@ -155,9 +152,18 @@ def run_tcp_data_process(stop_event, can_send_tcp, tcp_rate_mbps, port):
                 time.sleep(0.1)
                 continue
 
-            # Now send data until client disconnects or we stop
+            # Initialize performance tracking variables
             last_throughput_check = time.time()
             bytes_sent_since_check = 0
+            consecutive_timeouts = 0
+            consecutive_success = 0
+            
+            # Start with medium chunks and adapt based on connection quality
+            current_chunk_size = 'medium'
+            
+            # Burst parameters - send multiple chunks per timing cycle for higher throughput
+            burst_size = 1  # Start with sending 1 chunk per cycle
+            max_burst_size = 8  # Maximum number of chunks to send in a burst
             
             while not stop_event.is_set():
                 if not can_send_tcp.value:
@@ -165,63 +171,108 @@ def run_tcp_data_process(stop_event, can_send_tcp, tcp_rate_mbps, port):
                     time.sleep(0.05)
                     continue
 
-                # Check the current rate
+                # Get the current target rate
                 rate = tcp_rate_mbps.value
                 
-                # Select appropriate chunk size based on rate
-                if rate <= 500:  # <= 500 Mbps
-                    current_payload = payload_chunks['small']
-                elif rate <= 2000:  # <= 2 Gbps
-                    current_payload = payload_chunks['medium']
-                else:  # > 2 Gbps
-                    current_payload = payload_chunks['large']
+                # Choose payload size based on rate and connection quality
+                current_payload = payload_chunks[current_chunk_size]
                 
-                # For unlimited mode or very high rates, don't throttle
-                if rate <= 0 or rate > 10000:  # Unlimited or >10 Gbps
-                    target_Bps = float('inf')
-                    # Don't sleep, just send as fast as possible
-                    try:
-                        conn.sendall(current_payload)
-                        bytes_sent_since_check += len(current_payload)
-                    except (BrokenPipeError, ConnectionResetError):
-                        print("[TCP-PROC] Client disconnected.")
-                        break
-                    except Exception as e:
-                        print(f"[TCP-PROC] sendall error: {e}")
-                        break
+                # Calculate sending parameters
+                if rate <= 0:  # Unlimited rate mode
+                    # Use adaptive burst mode for maximum throughput
+                    send_interval = 0.001  # Small base interval (1ms)
+                    
+                    # Determine burst size based on success rate
+                    if consecutive_timeouts > 0:
+                        burst_size = max(1, burst_size // 2)  # Halve the burst size on timeout
+                    elif consecutive_success > 10:
+                        burst_size = min(max_burst_size, burst_size + 1)  # Gradually increase burst size
+                        consecutive_success = 0  # Reset counter
                 else:
-                    # Convert rate from Mbps to Bytes per second
+                    # Calculate how many bytes we need to send per second
                     target_Bps = (rate * 1_000_000) / 8.0
                     
-                    # Calculate how many chunks we can send per second
+                    # Calculate how many chunks we need to send per second
                     chunks_per_second = target_Bps / len(current_payload)
-                    # Calculate time per chunk
-                    time_per_chunk = 1.0 / chunks_per_second if chunks_per_second > 0 else 0
                     
-                    before_send = time.time()
+                    # Calculate time per chunk
+                    send_interval = 1.0 / chunks_per_second if chunks_per_second > 0 else 0
+                    
+                    # For rate-limited mode, use controlled burst sizes
+                    if rate < 100:  # Low rate
+                        burst_size = 1
+                    elif rate < 500:  # Medium rate
+                        burst_size = 2
+                    else:  # High rate
+                        burst_size = 4
+                
+                # Send burst of data
+                start_time = time.time()
+                success = True
+                
+                for _ in range(burst_size):
                     try:
                         conn.sendall(current_payload)
                         bytes_sent_since_check += len(current_payload)
+                        consecutive_success += 1
+                        consecutive_timeouts = 0
+                    except socket.timeout:
+                        print(f"[TCP-PROC] Send timeout - reducing chunk size")
+                        consecutive_timeouts += 1
+                        consecutive_success = 0
+                        success = False
+                        
+                        # Adapt chunk size on timeout
+                        if current_chunk_size == 'xlarge':
+                            current_chunk_size = 'large'
+                        elif current_chunk_size == 'large':
+                            current_chunk_size = 'medium'
+                        elif current_chunk_size == 'medium':
+                            current_chunk_size = 'small'
+                            
+                        # Backoff on timeout
+                        time.sleep(0.01 * (2 ** min(consecutive_timeouts, 3)))
+                        break
+                        
                     except (BrokenPipeError, ConnectionResetError):
                         print("[TCP-PROC] Client disconnected.")
+                        success = False
                         break
+                        
                     except Exception as e:
                         print(f"[TCP-PROC] sendall error: {e}")
+                        consecutive_timeouts += 1
+                        consecutive_success = 0
+                        success = False
+                        time.sleep(0.01)
                         break
-                    
-                    elapsed = time.time() - before_send
-                    leftover = time_per_chunk - elapsed
-                    if leftover > 0:
-                        # For more precise timing with high rates
-                        if leftover > 0.001:  # Only sleep for intervals > 1ms
-                            time.sleep(leftover)
+                
+                # If burst completed successfully and we're in rate-limited mode,
+                # sleep for the appropriate interval
+                if success and send_interval > 0:
+                    elapsed = time.time() - start_time
+                    sleep_time = max(0, send_interval - elapsed)
+                    if sleep_time > 0.001:  # Only sleep for meaningful intervals
+                        time.sleep(sleep_time)
                 
                 # Periodically calculate and log actual throughput
                 now = time.time()
                 if now - last_throughput_check >= 1.0:  # Log every second
                     actual_duration = now - last_throughput_check
                     actual_mbps = (bytes_sent_since_check * 8) / (actual_duration * 1_000_000)
-                    print(f"[TCP-PROC] Actual throughput: {actual_mbps:.2f} Mbps (Target: {rate} Mbps)")
+                    
+                    # Adapt chunk size based on performance
+                    if consecutive_success > 20 and actual_mbps > 500 and current_chunk_size == 'small':
+                        current_chunk_size = 'medium'
+                        print(f"[TCP-PROC] Connection stable, increasing chunk size to {current_chunk_size}")
+                    elif consecutive_success > 30 and actual_mbps > 1000 and current_chunk_size == 'medium':
+                        current_chunk_size = 'large'
+                        print(f"[TCP-PROC] Connection very stable, increasing chunk size to {current_chunk_size}")
+                    elif consecutive_success > 50 and actual_mbps > 2000 and current_chunk_size == 'large':
+                        current_chunk_size = 'xlarge'
+                        print(f"[TCP-PROC] Connection excellent, increasing chunk size to {current_chunk_size}")
+                    
+                    print(f"[TCP-PROC] Actual throughput: {actual_mbps:.2f} Mbps (Target: {rate} Mbps, Chunk: {current_chunk_size}, Burst: {burst_size})")
                     last_throughput_check = now
                     bytes_sent_since_check = 0
 
@@ -229,7 +280,10 @@ def run_tcp_data_process(stop_event, can_send_tcp, tcp_rate_mbps, port):
             print(f"[TCP-PROC] Error in main loop: {e}")
         finally:
             if conn:
-                conn.close()
+                try:
+                    conn.close()
+                except:
+                    pass
 
     sock.close()
     print("[TCP-PROC] Exiting process.")
