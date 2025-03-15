@@ -43,6 +43,7 @@ udp_rate_mbps = manager.Value('d', 0.0)
 ###########################################################
 current_log_filename = None
 current_protocol = None
+std::string custom_log_name; // New global variable to store the custom log name
 
 def clean_nan(obj):
     if isinstance(obj, float) and math.isnan(obj):

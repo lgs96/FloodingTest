@@ -25,18 +25,22 @@
 // Global variables to track current log file (similar to Python implementation)
 std::string current_log_filename;
 std::string current_protocol;
+std::string custom_log_name; // New global variable to store the custom log name
 
 /**
  * Creates a new CSV log file for the given protocol ('tcp' or 'udp'),
  * writes the CSV header, and tracks it globally.
  */
-void start_new_log_file(const std::string& protocol) {
-    DEBUG_LOG("Creating new log file: " + protocol);
+void start_new_log_file(const std::string& protocol, const std::string& log_name = "") {
+    DEBUG_LOG("Creating new log file: " + protocol + (log_name.empty() ? "" : " with custom name: " + log_name));
     // Close any previous log file first
     if (!current_log_filename.empty()) {
         std::cout << "[" << (current_protocol.empty() ? "UNKNOWN" : current_protocol) 
                  << "] Closed previous log file 'logs/" << current_log_filename << "'" << std::endl;
     }
+    
+    // Store the custom log name
+    custom_log_name = log_name;
     
     // Get current timestamp for filename
     auto now = std::chrono::system_clock::now();
@@ -44,8 +48,14 @@ void start_new_log_file(const std::string& protocol) {
     std::tm now_tm = *std::localtime(&now_time_t);
     
     std::ostringstream filename_stream;
-    filename_stream << protocol << "_"
-                   << std::put_time(&now_tm, "%Y_%m_%d_%H_%M_%S") << ".csv";
+    // If a custom log name is provided, use it as a prefix, otherwise use the protocol
+    if (!custom_log_name.empty()) {
+        filename_stream << custom_log_name << "_";
+    } else {
+        filename_stream << protocol << "_";
+    }
+    
+    filename_stream << std::put_time(&now_tm, "%Y_%m_%d_%H_%M_%S") << ".csv";
     
     current_log_filename = filename_stream.str();
     current_protocol = protocol;
@@ -65,6 +75,7 @@ void start_new_log_file(const std::string& protocol) {
     }
 }
 
+
 /**
  * Appends CSV log data to the current log file.
  * If no log file is set, creates an 'unknown' file.
@@ -77,7 +88,12 @@ void append_csv_logs(const std::string& csv_data) {
         std::tm now_tm = *std::localtime(&now_time_t);
         
         std::ostringstream filename_stream;
-        filename_stream << "unknown_" << std::put_time(&now_tm, "%Y_%m_%d_%H_%M_%S") << ".csv";
+        // Use custom name if available
+        if (!custom_log_name.empty()) {
+            filename_stream << custom_log_name << "_" << std::put_time(&now_tm, "%Y_%m_%d_%H_%M_%S") << ".csv";
+        } else {
+            filename_stream << "unknown_" << std::put_time(&now_tm, "%Y_%m_%d_%H_%M_%S") << ".csv";
+        }
         
         current_log_filename = filename_stream.str();
         current_protocol = "unknown";
@@ -387,6 +403,7 @@ private:
             else if (params["path"] == "/start_tcp") {
                 // Extract rate parameter
                 double rate = 0.0;
+                std::string log_file_name = "";
                 if (params.find("rate") != params.end()) {
                     try {
                         rate = std::stod(params["rate"]);
@@ -394,13 +411,17 @@ private:
                         rate = 0.0;
                     }
                 }
-                
+                if (params.find("log_name") != params.end()) {
+                    log_file_name = params["log_name"];
+                } else {
+                    log_file_name = "tcp_log";
+                }
                 // Update control variables
                 tcp_rate_mbps.store(rate);
                 can_send_tcp.store(true);
                 
                 // Create a new log file - ADD THIS LINE!
-                start_new_log_file("tcp");
+                start_new_log_file("tcp", log_file_name);
                 
                 std::cout << "[CONTROL] START_TCP with rate " << rate << " Mbps" << std::endl;
                 response = createResponse(200, "text/plain", "OK: started TCP\n");
